@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Category</title>
+    <style>
+      .error { color: red; margin-top: 10px; }
+      .success { color: green; margin-top: 10px; }
+      /* Tambahan styling agar terlihat saat loading */
+      input:disabled { background-color: #f0f0f0; cursor: not-allowed; }
+    </style>
+  </head>
+  <body>
+    <form id="category-form">
+      <h1>Edit Category</h1>
+      
+      <label for="category-name">Category Name:</label>
+      <input type="text" id="category-name" name="category-name" required />
+
+      <p id="feedback-message"></p>
+
+      <button type="submit" id="submit-btn">Edit Category</button>
+    </form>
+
+    <script type="module" src="edit-category.js"></script>
+  </body>
+</html>

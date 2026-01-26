@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Category</title>
+    <style>
+      .error { color: red; }
+      .success { color: green; }
+    </style>
+  </head>
+  <body>
+    <form id="category-form">
+      <h1>Create Category</h1>
+      
+      <label for="category-name">Category Name:</label>
+      <input type="text" id="category-name" name="category-name" required />
+
+      <p id="feedback-message"></p>
+
+      <button type="submit" id="submit-btn">Create Category</button>
+    </form>
+
+    <script type="module" src="category.js"></script>
+  </body>
+</html>

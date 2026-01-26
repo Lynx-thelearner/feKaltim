@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Categories</title>
+    <style>
+        /* CSS Sederhana untuk tabel */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .btn-edit { color: blue; text-decoration: none; margin-right: 10px; }
+        .btn-delete { color: white; background-color: red; border: none; padding: 5px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Daftar Kategori</h1>
+    
+    <a href="create.html">+ Tambah Kategori</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Kategori</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="category-tbody">
+            </tbody>
+    </table>
+
+    <script type="module" src="index-category.js"></script>
+</body>
+</html>
