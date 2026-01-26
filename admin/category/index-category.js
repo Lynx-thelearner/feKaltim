@@ -1,6 +1,7 @@
 import API_URL from "/config.js";
 
 const tableBody = document.getElementById("category-tbody");
+const token = localStorage.getItem("token");
 
 // 1. FUNGSI FETCH DATA (GET)
 // GANTI BAGIAN INI DI DALAM fetchCategories
@@ -11,19 +12,20 @@ async function fetchCategories() {
     tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Memuat data...</td></tr>`;
 
     // Request ke API
-    const response = await fetch(`${API_URL}/category/`, { 
-      method: "GET",
+    const response = await fetch(`${API_URL}/category`, {
       headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
-    }); 
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        "ngrok-skip-browser-warning": "true"
+      },
+    });
 
     // 1. Cek Error HTTP (404, 500, dll)
     if (!response.ok) {
-        const text = await response.text();
-        console.error("Server Error:", text);
-        throw new Error(`Request gagal: ${response.status} ${response.statusText}`);
+      const text = await response.text();
+      console.error("Server Error:", text);
+      throw new Error(
+        `Request gagal: ${response.status} ${response.statusText}`,
+      );
     }
 
     // --- BAGIAN INI DIHAPUS ---
@@ -33,19 +35,18 @@ async function fetchCategories() {
     // 2. Langsung coba parsing JSON
     // Jika ternyata isinya HTML, baris ini akan error dan loncat ke 'catch'
     const data = await response.json();
-    
-    // Normalisasi data (handle jika dibungkus { data: [] } atau array langsung)
-    const categories = Array.isArray(data) ? data : (data.data || []);
-    
-    renderTable(categories);
 
+    // Normalisasi data (handle jika dibungkus { data: [] } atau array langsung)
+    const categories = Array.isArray(data) ? data : data.data || [];
+
+    renderTable(categories);
   } catch (error) {
     console.error("Error:", error);
-    
+
     let pesanError = error.message;
     // Jika error parsing JSON (artinya dapet HTML)
     if (error.name === "SyntaxError") {
-        pesanError = "Data tidak valid (HTML). Cek URL API.";
+      pesanError = "Data tidak valid (HTML). Cek URL API.";
     }
 
     tableBody.innerHTML = `
@@ -69,7 +70,7 @@ function renderTable(categories) {
   categories.forEach((category, index) => {
     // Pastikan property 'id' atau 'id_category' sesuai respon backend
     // Di sini kita pakai 'id' sebagai asumsi umum, ganti jika perlu.
-    const id = category.id || category.id_category; 
+    const id = category.id || category.id_category;
 
     rows += `
       <tr>
@@ -88,7 +89,7 @@ function renderTable(categories) {
 
   // Pasang event listener untuk tombol delete setelah render selesai
   document.querySelectorAll(".btn-delete").forEach((btn) => {
-    btn.addEventListener("click", function() {
+    btn.addEventListener("click", function () {
       const id = this.getAttribute("data-id");
       deleteCategory(id);
     });
@@ -97,15 +98,17 @@ function renderTable(categories) {
 
 // 3. FUNGSI HAPUS (DELETE)
 async function deleteCategory(id) {
-  const confirmDelete = confirm("Apakah Anda yakin ingin menghapus kategori ini?");
+  const confirmDelete = confirm(
+    "Apakah Anda yakin ingin menghapus kategori ini?",
+  );
   if (!confirmDelete) return;
 
   try {
     const response = await fetch(`${API_URL}/category/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -114,8 +117,7 @@ async function deleteCategory(id) {
 
     alert("Kategori berhasil dihapus!");
     // Refresh tabel tanpa reload halaman
-    fetchCategories(); 
-
+    fetchCategories();
   } catch (error) {
     console.error("Error deleting:", error);
     alert("Gagal menghapus kategori. Cek console.");
