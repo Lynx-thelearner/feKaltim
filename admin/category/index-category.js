@@ -1,6 +1,6 @@
 import API_URL from "/config.js";
 
-const tableBody = document.getElementById("category-tbody");
+const tableBody = document.getElementById("category-body");
 
 // 1. FUNGSI FETCH DATA (GET)
 // GANTI BAGIAN INI DI DALAM fetchCategories
@@ -11,7 +11,7 @@ async function fetchCategories() {
     tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Memuat data...</td></tr>`;
 
     // Request ke API
-    const response = await fetch(`${API_URL}/category/`, { 
+    const response = await fetch(`${API_URL}/category`, { 
       method: "GET",
       headers: {
         "Content-Type": "application/json",
