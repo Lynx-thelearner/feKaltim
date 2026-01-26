@@ -1,17 +1,10 @@
-import API_URL from "./config.js";
+import API_URL from "../config.js";
+import { getRole } from "../auth/auth.js";
 
-import { getRole } from "./auth.js";
-
-const role = getRole();
 const username = document.getElementById("username");
 const password = document.getElementById("password");
 const errorMsg = document.getElementById("errorMsg");
 const loginBtn = document.getElementById("loginBtn");
-
-function parseJwt(token) {
-  const base64Payload = token.split(".")[1];
-  return JSON.parse(atob(base64Payload));
-}
 
 loginBtn.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -32,18 +25,16 @@ loginBtn.addEventListener("click", async (e) => {
     }
 
     const data = await response.json();
-    const token = data.access_token;
+    localStorage.setItem("token", data.access_token);
 
-    localStorage.setItem("token", token);
-
-    const payload = parseJwt(token);
-    const role = payload.role;
+    const role = getRole();
 
     if (role === "admin") {
-      window.location.href = "admin/dashboard.html";
+      window.location.href = "/admin/dashboard.html";
     } else {
-      window.location.href = "home.html";
+      window.location.href = "/home.html";
     }
+
   } catch (err) {
     console.error(err);
     errorMsg.style.display = "block";

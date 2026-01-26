@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card">
+        <h1>Buat Akun Baru</h1>
+
+        <form id="register-form">
+            <label for="nama">nama</label>
+            <input type="text" name="" id="nama">
+
+            <label for="username">Username</label>
+            <input type="text" name="" id="username">
+
+            <label for="email">Email</label>
+            <input type="text" name="" id="email">
+
+            <label for="password">Password</label>
+            <input type="password" name="" id="password" required minlength="8">
+
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" required>
+
+            <button class="btn" id="submit" type="submit">Daftar</button>
+
+            <div id="feedback" aria-live="polite"></div>
+
+            <p class="hint">
+            Sudah punya akun? <a href="login.html">Masuk di sini</a>
+            </p>
+            </form>
+
+    </div>
+</body>
+
+<script type="module" src="/logres/register.js"></script>
+</html>
