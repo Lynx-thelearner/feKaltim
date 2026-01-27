@@ -66,20 +66,33 @@ function renderTable(categories) {
     return;
   }
 
-  let rows = "";
+ let rows = "";
   categories.forEach((category, index) => {
-    // Pastikan property 'id' atau 'id_category' sesuai respon backend
-    // Di sini kita pakai 'id' sebagai asumsi umum, ganti jika perlu.
+    // Pastikan property ID sesuai (id atau id_category)
     const id = category.id || category.id_category;
 
     rows += `
-      <tr>
-        <td>${index + 1}</td>
-        <td>${category.name}</td>
-        <td>
-          <a href="edit.html?id_category=${id}" class="btn-edit">Edit</a>
-          
-          <button class="btn-delete" data-id="${id}">Hapus</button>
+      <tr class="hover:bg-gray-50 border-b border-gray-200 transition-colors duration-200">
+        <td class="px-6 py-4 text-gray-700 font-medium">
+            ${index + 1}
+        </td>
+
+        <td class="px-6 py-4 text-gray-800 font-semibold">
+            ${category.name}
+        </td>
+
+        <td class="px-6 py-4 ">
+          <div class="flex items-center justify-center gap-3">
+             <a href="edit.html?id_category=${id}"
+                class="flex items-center px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105">
+                ✏️ <span class="ml-2">Edit</span>
+             </a>
+
+             <button class="btn-delete flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105"
+                data-id="${id}">
+                🗑️ <span class="ml-2">Hapus</span>
+             </button>
+          </div>
         </td>
       </tr>
     `;

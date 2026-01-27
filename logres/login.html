@@ -1,31 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Masuk - Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Font Family */
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body>
-    <div class="card">
+<body class="font-inter min-h-screen flex items-center justify-center p-4 bg-[url('Image_wisata.jpg')] bg-cover bg-center bg-no-repeat relative">
 
-        <h1>Login</h1>
+    <div class="absolute inset-0 bg-black/20 z-0"></div>
 
-        <input type="text" id="username">
+    <div class="relative z-10 w-full max-w-[450px] p-8 md:p-10 rounded-3xl shadow-2xl backdrop-blur-md bg-white/80 border border-white/50 transform transition-all">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2 font-playfair">Selamat Datang</h1>
+            <p class="text-gray-600 text-sm">Masuk untuk membagikan pengalaman Anda</p>
+        </div>
 
-        <input type="password" id="password">
+        <form id="login-form" class="space-y-5">
+            
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-focus-within:text-[#0c969c] transition-colors">
+                       
+                    </svg>
+                </div>
+                <input type="text" id="username" 
+                       class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 bg-white focus:outline-none focus:border-[#0c969c] focus:ring-2 focus:ring-[#0c969c]/20 transition-all"
+                       placeholder="Alamat Email">
+            </div>
 
-        <button id="loginBtn">
-        Login
-      </button>
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-focus-within:text-[#0c969c] transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    </svg>
+                </div>
+                <input type="password" id="password" 
+                       class="w-full pl-12 pr-12 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 bg-white focus:outline-none focus:border-[#0c969c] focus:ring-2 focus:ring-[#0c969c]/20 transition-all"
+                       placeholder="Kata Sandi">
+                
+                <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </button>
+            </div>
 
-      <p id="errorMsg" style="color: red; display: none">
-        Username atau Password salah
-      </p>
+            <div class="text-right">
+                <a href="#" class="text-xs text-gray-500 hover:text-[#0c969c] font-medium transition-colors">Lupa Password?</a>
+            </div>
 
-      <a href="register.html">Register</a>
+            <div id="errorMsg" style="display: none;" class="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg border border-red-200 text-center animate-pulse">
+                Username atau Password salah
+            </div>
+
+            <button id="loginBtn" type="button" class="w-full bg-[#0c969c] hover:bg-[#097b80] text-white font-bold py-3.5 rounded-xl shadow-lg shadow-[#0c969c]/30 transition-all duration-200 flex items-center justify-center gap-2 transform active:scale-[0.98]">
+                <span>Masuk</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+            </button>
+
+            <div class="text-center mt-6">
+                <p class="text-sm text-gray-600">
+                    Belum punya akun? 
+                    <a href="register.html" class="text-[#0c969c] font-bold hover:underline">Daftar</a>
+                </p>
+            </div>
+        </form>
     </div>
-  </body>
 
-<script type="module" src="../logres/login.js"></script>
+    <script type="module" src="../logres/login.js"></script>
+    
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+    </script>
 
+</body>
 </html>

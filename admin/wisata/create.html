@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Wisata</title>
+    <style>
+      .error { color: red; }
+      .success { color: green; }
+    </style>
+  </head>
+  <body>
+    <form id="wisata-form">
+      <h1>Create Wisata</h1>
+      
+      <label for="nama_wisata">Wisata Name:</label>
+      <input type="text" id="nama_wisata" name="wisata-name" required />
+
+      <label for="deskripsi">Deskripsi</label>
+      <input type="text" id="deskripsi" name="deskripsi" required />
+
+      <label for="lokasi">Lokasi</label>
+      <input type="text" id="lokasi" name="lokasi" required />
+
+      <label for="ticket_price">Harga Tiket</label>
+      <input type="number" id="ticket_price" name="ticket_price" required />
+
+      <label for="open_time">Open Time</label>
+      <input type="number" id="open_time" name="open_time" required />
+
+      <label for="close_time">Close Time</label>
+      <input type="number" id="close_time" name="close_time" required />
+
+      <section>
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+          <!-- Options akan diisi secara dinamis -->
+        </select>
+      </section>
+      <p id="feedback-message"></p>
+
+      <label for=""></label>
+
+      <button type="submit" id="submit-btn">Create Wisata</button>
+    </form>
+
+    <script type="module" src="create.js"></script>
+  </body>
+</html>

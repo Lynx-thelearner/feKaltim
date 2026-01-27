@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Tags - Admin Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+        
+        <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
+            <div class="p-6 text-center border-b border-slate-700">
+                <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
+                <p class="text-xs text-gray-400 mt-1">Pengelola Wisata Kaltim</p>
+            </div>
+
+            <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+                <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <span class="mr-3">🏠</span> Dashboard
+                </a>
+                
+                <a href="../wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <span class="mr-3">🌲</span> Data Wisata
+                </a>
+
+                <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <span class="mr-3">📂</span> Kategori
+                </a>
+
+                <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
+                    <span class="mr-3">🏷️</span> Tags
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-slate-700">
+                <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                    <span class="mr-2">🚪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col h-screen overflow-hidden">
+            
+            <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+                <h1 class="text-xl font-semibold text-gray-800">Manajemen Tags Wisata</h1>
+                <div class="text-sm text-gray-500">Halo, Admin</div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto p-8">
+                
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-700">Daftar Tags</h2>
+                    <a href="create.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center">
+                        <span class="text-lg mr-1">+</span> Tambah Tag
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-bold tracking-wider">
+                            <tr>
+                                <th class="px-6 py-4 border-b text-left">No</th>
+                                <th class="px-6 py-4 border-b text-left">Nama Tag</th>
+                                <th class="px-6 py-4 border-b text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tag-tbody" class="text-gray-600 text-sm divide-y divide-gray-200">
+                            <tr>
+                                <td colspan="3" class="p-4 text-center text-gray-400">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script type="module" src="index-tag.js"></script>
+
+    <script>
+        function handleLogout() {
+            if (confirm("Apakah Anda yakin ingin keluar?")) {
+                localStorage.removeItem("token"); 
+                window.location.href = "/login.html"; 
+            }
+        }
+    </script>
+</body>
+</html>
