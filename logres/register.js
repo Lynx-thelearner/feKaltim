@@ -23,15 +23,14 @@ form.addEventListener("submit", async (e) => {
   }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = "Memproses...";
-
+  submitBtn.textContent = `<div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white inline-block mr-2"></div> Memproses...`;
   try {
 
     if (!nama || !username || !email || !password || !confirm) {
       feedback.textContent = "Semua field wajib diisi.";
       feedback.className = "error";
       submitBtn.disabled = false;
-      submitBtn.textContent = "Daftar";
+      submitBtn.textContent = `<span>Daftar</span>`;
       return;
     }
 
@@ -83,7 +82,7 @@ form.addEventListener("submit", async (e) => {
       return;
     }
 
-    // kalau sukses
+
     feedback.textContent =
       data.message || data.detail || "Akun berhasil dibuat! Mengalihkan...";
     feedback.className = "success";

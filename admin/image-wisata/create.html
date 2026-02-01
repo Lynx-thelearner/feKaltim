@@ -1,12 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Kategori - Admin Nature Kaltim</title>
+    <title>Upload Gambar - Admin Nature Kaltim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -20,21 +19,10 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #555;
       }
-      /* Style saat input disabled (loading) */
-      input:disabled {
-        background-color: #f3f4f6;
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
-      button:disabled {
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
     </style>
   </head>
   <body class="bg-gray-100 font-sans antialiased">
     <div class="flex h-screen overflow-hidden">
-      
       <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
         <div class="p-6 text-center border-b border-slate-700">
           <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
@@ -48,28 +36,24 @@
           >
             <span class="mr-3">🏠</span> Dashboard
           </a>
-
           <a
             href="../wisata/index.html"
             class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
           >
             <span class="mr-3">🌲</span> Data Wisata
           </a>
-
           <a
-            href="index.html"
-            class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md"
+            href="../category/index.html"
+            class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
           >
             <span class="mr-3">📂</span> Kategori
           </a>
-
           <a
             href="../tags/index.html"
             class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
           >
             <span class="mr-3">🏷️</span> Tags
           </a>
-
           <a
             href="../facility/index.html"
             class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
@@ -78,13 +62,11 @@
           </a>
 
           <a
-            href="../image-wisata/index.html"
-            class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
+            href="index.html"
+            class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md"
           >
             <span class="mr-3">🖼️</span> Gambar
           </a>
-
-
           <a
             href="../user/index.html"
             class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
@@ -107,7 +89,9 @@
         <header
           class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10"
         >
-          <h1 class="text-xl font-semibold text-gray-800">Edit Data Kategori</h1>
+          <h1 class="text-xl font-semibold text-gray-800">
+            Upload Gambar Baru
+          </h1>
           <div class="flex items-center gap-3">
             <div class="text-right">
               <div class="text-sm font-medium text-gray-800" id="admin-name">
@@ -128,11 +112,11 @@
             <ol class="list-reset flex">
               <li>
                 <a href="index.html" class="text-blue-600 hover:text-blue-800"
-                  >Kategori</a
+                  >Gambar</a
                 >
               </li>
               <li><span class="mx-2">/</span></li>
-              <li class="text-gray-700">Edit Data</li>
+              <li class="text-gray-700">Upload</li>
             </ol>
           </nav>
 
@@ -141,59 +125,81 @@
           >
             <div class="p-8">
               <div class="flex items-center mb-6">
-                <span class="bg-amber-100 text-amber-600 p-2 rounded-lg mr-3">
-                  ✏️
-                </span>
-                <div>
-                  <h2 class="text-2xl font-bold text-gray-700">
-                    Edit Kategori
-                  </h2>
-                  <p class="text-xs text-gray-400">
-                    Ubah nama kategori wisata di bawah ini.
-                  </p>
-                </div>
+                <span class="bg-blue-100 text-blue-600 p-2 rounded-lg mr-3"
+                  >🖼️</span
+                >
+                <h2 class="text-2xl font-bold text-gray-700">Form Galeri</h2>
               </div>
 
-              <form id="category-form" class="space-y-6">
+              <form id="image-form" class="space-y-6">
                 <div>
                   <label
-                    for="category-name"
+                    for="image-title"
                     class="block text-sm font-medium text-gray-700 mb-2"
+                    >Judul / Nama Gambar</label
                   >
-                    Nama Kategori
-                  </label>
                   <input
                     type="text"
-                    id="category-name"
-                    name="category-name"
-                    placeholder="Memuat data..."
+                    id="image-title"
+                    name="image-title"
+                    placeholder="Contoh: Pemandangan Pantai Derawan"
                     required
-                    disabled
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition"
                   />
                 </div>
 
-                <div
-                  id="feedback-message"
-                  class="text-sm font-medium min-h-[20px]"
-                ></div>
+                <div>
+                  <label
+                    for="image-file"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    >Upload File Gambar</label
+                  >
+                  <input
+                    type="file"
+                    id="image-file"
+                    name="image-file"
+                    accept="image/*"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white"
+                  />
+                  <p class="text-xs text-gray-500 mt-1">
+                    Format: JPG, PNG, JPEG. Maks 2MB.
+                  </p>
+                </div>
+
+                <div>
+                  <label
+                    for="wisata-select"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    >Pilih Wisata</label
+                  >
+                  <select
+                    id="wisata-select"
+                    name="wisata-select"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white"
+                  >
+                    <option value="">-- Pilih Wisata Terkait --</option>
+                    <option disabled>Memuat data...</option>
+                  </select>
+                </div>
+
+                <div id="feedback-message" class="text-sm font-medium"></div>
 
                 <div
                   class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100"
                 >
                   <a
                     href="index.html"
-                    class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition duration-200"
+                    class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition"
+                    >Batal</a
                   >
-                    Batal
-                  </a>
                   <button
                     type="submit"
                     id="submit-btn"
-                    disabled
-                    class="px-6 py-2 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 shadow-lg shadow-amber-500/30 transition duration-200 flex items-center"
+                    class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 shadow-lg shadow-green-500/30 transition flex items-center"
                   >
-                    <span>Simpan Perubahan</span>
+                    <span>Simpan</span>
                   </button>
                 </div>
               </form>
@@ -203,15 +209,15 @@
       </main>
     </div>
 
-    <script type="module" src="edit-category.js"></script>
+    <script type="module" src="create.js"></script>
     <script>
-    function handleLogout() {
-    if (confirm("Yakin ingin keluar?")) {
-      localStorage.clear();
-      window.location.href = "../../logres/login.html"; 
-    }
-  }
-    </script
+      function handleLogout() {
+        if (confirm("Yakin ingin keluar?")) {
+          localStorage.removeItem("token");
+          // Tambahkan satu lagi "../" agar naik 2 level
+          window.location.href = "../../logres/login.html";
+        }
+      }
     </script>
   </body>
 </html>

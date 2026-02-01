@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        /* Efek Teks Outline */
+        .stroke-text { -webkit-text-stroke: 1px #cbd5e1; color: transparent; }
+        
+        /* Animasi Marquee Text */
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { display: flex; white-space: nowrap; animation: marquee 30s linear infinite; }
+
+        /* Animasi Fade Up */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .delay-100 { animation-delay: 0.1s; } 
+        .delay-200 { animation-delay: 0.2s; } 
+        .delay-300 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 pt-6 px-4">
+        <div id="nav-container" class="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl border border-white/50 rounded-full px-6 py-4 flex justify-between items-center shadow-lg shadow-slate-200/50 transition-all duration-300">
+            
+            <a href="home.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-cyan-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 group-hover:scale-110 transition-transform">
+                    <i data-lucide="compass" width="20"></i>
+                </div>
+                <span class="font-serif font-bold text-xl hidden sm:block tracking-tight text-slate-800">
+                    Nature<span class="text-cyan-600">Kaltim.</span>
+                </span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
+                <a href="home.html" class="text-cyan-600 font-bold px-3 py-1 bg-cyan-50 rounded-full">Beranda</a>
+                <a href="catalog.html" class="hover:text-cyan-600 transition relative group px-2">
+                    Destinasi
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-600 transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <div id="nav-auth" class="flex items-center gap-3">
+                <div class="animate-pulse w-24 h-10 bg-slate-200 rounded-full"></div>
+            </div>
+
+            <button class="md:hidden text-slate-800 p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-24 left-4 right-4 bg-white border border-slate-200 rounded-2xl p-6 shadow-2xl md:hidden flex flex-col gap-4 z-50 origin-top animate-fade-up">
+            <a href="home.html" class="text-cyan-600 font-bold border-b border-slate-100 pb-3 flex items-center gap-2"><i data-lucide="home" width="16"></i> Beranda</a>
+            <a href="catalog.html" class="text-slate-600 hover:text-cyan-600 border-b border-slate-100 pb-3 flex items-center gap-2"><i data-lucide="map" width="16"></i> Destinasi</a>
+            <div id="mobile-auth-links" class="flex flex-col gap-3 pt-2"></div>
+        </div>
+    </nav>
+
+    <section class="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+        <div class="absolute inset-0 z-0">
+            <img src="https://kanalkaltim.com/wp-content/uploads/2017/12/derawan-800x445.jpg"  
+                 class="w-full h-full object-cover opacity-60 scale-105 animate-[pulse_10s_ease-in-out_infinite]" 
+                 alt="Borneo Landscape">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-slate-900/30"></div>
+        </div>
+        
+        <div class="relative z-10 container mx-auto px-6 text-center mt-10">
+            <div class="flex items-center justify-center gap-4 mb-8 animate-fade-up">
+                <div class="h-[1px] w-12 bg-white/70"></div>
+                <span class="text-cyan-300 tracking-[0.3em] text-xs font-bold uppercase drop-shadow-md">Pesona Indonesia</span>
+                <div class="h-[1px] w-12 bg-white/70"></div>
+            </div>
+            
+            <h1 class="text-6xl md:text-9xl font-serif text-white leading-none tracking-tighter mb-8 drop-shadow-2xl animate-fade-up delay-100">
+                NATURE<br/>KALTIM
+            </h1>
+            
+            <p class="max-w-lg mx-auto text-white/90 text-lg font-light mb-10 leading-relaxed animate-fade-up delay-200">
+                Informasi lengkap destinasi wisata alam terbaik di Kalimantan Timur. Temukan surga tersembunyi Anda hari ini.
+            </p>
+
+            <div class="animate-fade-up delay-300 flex justify-center gap-4">
+                <a href="catalog.html" class="group flex items-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-cyan-600 hover:text-white transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-cyan-500/50 transform hover:-translate-y-1">
+                    Mulai Jelajah <i data-lucide="arrow-right" width="18" class="group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+            <div>
+                <h2 class="text-4xl font-serif text-slate-900 mb-2 font-bold">Baru Ditambahkan</h2>
+            </div>
+            <a href="catalog.html" class="text-cyan-600 flex items-center gap-2 text-sm font-bold uppercase tracking-wider hover:gap-4 transition-all group border border-cyan-100 px-4 py-2 rounded-full hover:bg-cyan-50">
+                Lihat Semua <i data-lucide="arrow-right" class="group-hover:translate-x-1 transition-transform" width="16"></i>
+            </a>
+        </div>
+        
+        <div id="popular-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="h-[400px] bg-slate-200 rounded-3xl animate-pulse"></div>
+            <div class="h-[400px] bg-slate-200 rounded-3xl animate-pulse"></div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-slate-50 overflow-hidden border-y border-slate-200 select-none">
+        <div class="animate-marquee flex gap-16 items-center">
+            <h2 class="text-7xl md:text-9xl font-serif font-black stroke-text whitespace-nowrap opacity-50">NATURE KALTIM</h2>
+            <i data-lucide="compass" width="64" height="64" class="text-slate-300"></i>
+            <h2 class="text-7xl md:text-9xl font-serif font-black stroke-text whitespace-nowrap opacity-50">PESONA INDONESIA</h2>
+            <i data-lucide="compass" width="64" height="64" class="text-slate-300"></i>
+             <h2 class="text-7xl md:text-9xl font-serif font-black stroke-text whitespace-nowrap opacity-50">NATURE KALTIM</h2>
+        </div>
+    </section>
+    
+    <footer class="bg-slate-50 pt-20 pb-10 border-t border-slate-200">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <div class="flex items-center gap-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center text-slate-600">
+                        <i data-lucide="compass" width="16"></i>
+                    </div>
+                    <span class="font-serif font-bold text-lg text-slate-800">Nature Kaltim.</span>
+                    <span class="ml-2">© 2026</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="home.js"></script>
+    
+    <script>
+        window.addEventListener('load', () => { if(window.lucide) lucide.createIcons(); });
+    </script>
+</body>
+</html>

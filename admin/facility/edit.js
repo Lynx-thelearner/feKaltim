@@ -1,65 +1,64 @@
 import API_URL from "/config.js";
 
-
-
-const form = document.getElementById("tag-form");
-// Pastikan ID input di HTML edit.html adalah "tag-name"
-const nameInput = document.getElementById("tag-name"); 
+const form = document.getElementById("facility-form");
+const nameInput = document.getElementById("facility-name");
 const feedback = document.getElementById("feedback-message");
 const submitBtn = document.getElementById("submit-btn");
 
 const urlParams = new URLSearchParams(window.location.search);
-const id_tag = urlParams.get("id_tag");
-
-
+const id_facility = urlParams.get("id_facility");
 
 // Cek ID di URL
-if (!id_tag) {
-    alert("ID Tag tidak ditemukan!");
-    window.location.href = "/admin/tags/index.html"; // Perbaikan path
+if (!id_facility) {
+    alert("ID Fasilitas tidak ditemukan!");
+    window.location.href = "/admin/facility/index.html";
 }
 
-
+// Cek Token sebelum Fetch
 const token = localStorage.getItem("token");
-// 1. Cek Token
 if (!token) {
-    alert("Sesi habis. Silakan login kembali.");
-    window.location.href = "../../logres/login.html";
+    alert("Kamu belum login!");
+    window.location.href = "/login.html";
 }
-
 
 // 1. FUNGSI FETCH DATA (GET)
-async function fetchTagData() {
+async function fetchCategoryData() {
     try {
         nameInput.disabled = true;
         submitBtn.disabled = true;
         submitBtn.textContent = "Memuat data...";
 
-        // PERBAIKAN: Gunakan /tags (jamak) agar konsisten, atau sesuaikan dengan backend
-        const endpoint = `${API_URL}/tag/${id_tag}`; 
-        console.log("Fetching URL:", endpoint);
+        // Debugging: Cek URL di console
+        console.log("Fetching URL:", `${API_URL}/facility/${id_facility}`);
 
-        const res = await fetch(endpoint, {
+        const res = await fetch(`${API_URL}/facility/${id_facility}`, {
             method: "GET",
             headers: {
                 "ngrok-skip-browser-warning": "true",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}` // Pastikan token tidak null
             }
         });
 
+        // Tangkap Error 500 / 404 dari Server
         if (!res.ok) {
+            const status = res.status;
             const text = await res.text();
-            if (res.status === 500) throw new Error("Server Backend Error (500). Cek terminal backend.");
-            if (res.status === 404) throw new Error("Tag tidak ditemukan.");
-            throw new Error(`Gagal ambil data (${res.status}): ${text}`);
+            
+            if (status === 500) {
+                throw new Error("Server Backend Error (500). Minta teman backend cek terminalnya.");
+            } else if (status === 404) {
+                throw new Error("Data fasilitas tidak ditemukan di database.");
+            } else {
+                throw new Error(`Gagal mengambil data (${status}): ${text}`);
+            }
         }
 
         const result = await res.json();
-        const data = result.data || result; 
+        const data = result.data || result; // Handle format {data: ...} atau langsung object
 
         if (!data || !data.name) {
-            throw new Error("Data tag kosong atau struktur salah.");
+            throw new Error("Struktur data dari backend tidak sesuai (nama kategori tidak ditemukan).");
         }
 
         nameInput.value = data.name;
@@ -71,11 +70,12 @@ async function fetchTagData() {
     } finally {
         nameInput.disabled = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = "Edit Tag"; // Perbaikan Text
+        submitBtn.textContent = "Edit Facility";
     }
 }
 
-fetchTagData();
+// Jalankan saat halaman dimuat
+fetchCategoryData();
 
 // 2. FUNGSI UPDATE DATA (PATCH)
 form.addEventListener("submit", async (e) => {
@@ -86,7 +86,7 @@ form.addEventListener("submit", async (e) => {
     feedback.className = "";
 
     if (!name) {
-        feedback.textContent = "Nama tag tidak boleh kosong.";
+        feedback.textContent = "Nama kategori tidak boleh kosong.";
         feedback.className = "error";
         return;
     }
@@ -95,37 +95,34 @@ form.addEventListener("submit", async (e) => {
     submitBtn.textContent = "Menyimpan...";
 
     try {
-        // PERBAIKAN: Konsisten gunakan /tags (jamak)
-        const res = await fetch(`${API_URL}/tag/${id_tag}`, {
-            method: "PATCH", // Pastikan backend support PATCH (atau coba PUT)
+        const res = await fetch(`${API_URL}/facility/${id_facility}`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`, 
+                "Authorization": `Bearer ${token}`, // Jangan lupa token di sini juga
                 "ngrok-skip-browser-warning": "true"
             },
             body: JSON.stringify({ name: name }),
         });
 
-        // Handle respon JSON vs HTML Error
         let result;
         const contentType = res.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
             result = await res.json();
         } else {
             const text = await res.text();
-            throw new Error(`Server Error (Bukan JSON): ${text}`);
+            throw new Error(`Server Error: ${text}`);
         }
 
         if (!res.ok) {
-            throw new Error(result.message || result.detail || "Gagal mengupdate tag.");
+            throw new Error(result.message || "Gagal mengupdate fasilitas.");
         }
 
-        feedback.textContent = "Tag berhasil diperbarui!";
+        feedback.textContent = "Fasilitas berhasil diperbarui!";
         feedback.className = "success";
 
-        // PERBAIKAN: Redirect ke index tags
         setTimeout(() => {
-            window.location.href = "/admin/tags/index.html"; 
+            window.location.href = "/admin/facility/index.html";
         }, 1200);
 
     } catch (err) {
@@ -133,6 +130,6 @@ form.addEventListener("submit", async (e) => {
         feedback.textContent = err.message;
         feedback.className = "error";
         submitBtn.disabled = false;
-        submitBtn.textContent = "Edit Tag";
+        submitBtn.textContent = "Edit Category";
     }
 });

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daftar Tags - Admin Nature Kaltim</title>
+    <title>Daftar Fasilitas - Admin Nature Kaltim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       ::-webkit-scrollbar { width: 8px; }
@@ -31,17 +31,18 @@
           <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
             <span class="mr-3">📂</span> Kategori
           </a>
-          
-          <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
+          <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
             <span class="mr-3">🏷️</span> Tags
           </a>
           
-          <a href="../facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+          <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
             <span class="mr-3">🛠️</span> Fasilitas
           </a>
+          
           <a href="../image-wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
             <span class="mr-3">🖼️</span> Gambar
           </a>
+        
           <a href="../user/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
             <span class="mr-3">👤</span> User
           </a>
@@ -55,51 +56,51 @@
       </aside>
 
       <main class="flex-1 flex flex-col h-screen overflow-hidden">
-      <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
-    <h1 class="text-xl font-semibold text-gray-800">Manajemen Tags Wisata</h1>
-    <div class="flex items-center gap-3">
-      <div class="text-right">
-        <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
-        <div class="text-xs text-gray-500">Administrator</div>
-      </div>
-      <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200">A</div>
-    </div>
-  </header>
+        <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+          <h1 class="text-xl font-semibold text-gray-800">Manajemen Fasilitas Wisata</h1>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
+              <div class="text-xs text-gray-500">Administrator</div>
+            </div>
+            <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200">A</div>
+          </div>
+        </header>
 
-  <div class="flex-1 overflow-y-auto p-8">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-2xl font-bold text-gray-700">Daftar Tags</h2>
-      <a href="create.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center">
-        <span class="text-lg mr-1">+</span> Tambah Tag
-      </a>
+        <div class="flex-1 overflow-y-auto p-8">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-700">Daftar Fasilitas</h2>
+            <a href="create.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center">
+              <span class="text-lg mr-1">+</span> Tambah Fasilitas
+            </a>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+            <table class="w-full text-left border-collapse">
+              <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-bold tracking-wider">
+                <tr>
+                  <th class="px-6 py-4 border-b text-left">No</th>
+                  <th class="px-6 py-4 border-b text-left">Nama Fasilitas</th>
+                  <th class="px-6 py-4 border-b text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="facility-tbody" class="text-gray-600 text-sm divide-y divide-gray-200">
+                <tr>
+                  <td colspan="3" class="p-8 text-center text-gray-400">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mb-2"></div>
+                        Memuat data fasilitas...
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
     </div>
 
-    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-      <table class="w-full text-left border-collapse">
-        <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-bold tracking-wider">
-          <tr>
-            <th class="px-6 py-4 text-left border-b">No</th>
-            <th class="px-6 py-4 text-left border-b">Nama Tag</th>
-            <th class="px-6 py-4 text-center border-b">Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="tag-tbody" class="text-gray-600 text-sm divide-y divide-gray-200">
-          <tr>
-            <td colspan="3" class="p-8 text-center text-gray-400">
-              <div class="flex flex-col items-center justify-center">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mb-2"></div>
-                Memuat data tags...
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</main>
-    </div>
-
-    <script type="module" src="index-tag.js"></script>
+    <script type="module" src="index-facility.js"></script>
     <script>
      function handleLogout() {
     if (confirm("Yakin ingin keluar?")) {

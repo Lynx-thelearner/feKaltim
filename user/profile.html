@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-up { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 pt-6 px-4">
+        <div id="nav-container" class="max-w-7xl mx-auto bg-white/90 backdrop-blur-xl border border-white/50 rounded-full px-6 py-4 flex justify-between items-center shadow-lg shadow-slate-200/50">
+            <a href="home.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-cyan-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 group-hover:scale-110 transition-transform">
+                    <i data-lucide="compass" width="20"></i>
+                </div>
+                <span class="font-serif font-bold text-xl hidden sm:block tracking-tight text-slate-800">
+                    Nature<span class="text-cyan-600">Kaltim.</span>
+                </span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
+                <a href="home.html" class="hover:text-cyan-600 transition">Beranda</a>
+                <a href="catalog.html" class="hover:text-cyan-600 transition">Destinasi</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span id="nav-username" class="text-sm font-bold text-slate-700 hidden lg:block">Loading...</span>
+                <div class="w-10 h-10 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-700 font-bold border border-cyan-200">
+                    <i data-lucide="user" width="20"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-6 pt-32 pb-12">
+        
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-10 text-center md:text-left animate-fade-up">
+                <h1 class="text-3xl md:text-4xl font-serif font-bold text-slate-900">Profil Pengguna</h1>
+                <p class="text-slate-500 mt-2">Kelola informasi akun dan preferensi Anda.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-up delay-100">
+                
+                <div class="md:col-span-1">
+                    <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-200/50 text-center relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-10"></div>
+                        
+                        <div class="relative z-10">
+                            <div id="profile-avatar" class="w-24 h-24 rounded-full bg-cyan-600 text-white text-3xl font-serif font-bold flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg">
+                                U
+                            </div>
+                            
+                            <h2 id="profile-name" class="text-xl font-bold text-slate-800">User Name</h2>
+                            <p id="profile-role" class="text-sm text-cyan-600 font-bold uppercase tracking-wider mb-6">Member</p>
+                            
+                            <div class="border-t border-slate-100 pt-6 space-y-3">
+                                <div class="flex items-center gap-3 text-slate-500 text-sm justify-center md:justify-start">
+                                    <i data-lucide="mail" width="16"></i>
+                                    <span id="profile-email">user@example.com</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-slate-500 text-sm justify-center md:justify-start">
+                                    <i data-lucide="calendar" width="16"></i>
+                                    <span>Bergabung 2026</span>
+                                </div>
+                            </div>
+
+                            <button onclick="handleLogout()" class="mt-8 w-full py-3 rounded-xl bg-red-50 text-red-600 font-bold hover:bg-red-100 transition flex items-center justify-center gap-2">
+                                <i data-lucide="log-out" width="18"></i> Keluar Akun
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2">
+                    <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
+                            <div class="p-2 bg-cyan-50 rounded-lg text-cyan-600">
+                                <i data-lucide="settings" width="20"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800">Edit Informasi</h3>
+                        </div>
+
+                        <form id="profile-form" class="space-y-6">
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-3.5 text-slate-400"><i data-lucide="user" width="18"></i></span>
+                                    <input type="text" id="input-name" required
+                                        class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition font-medium text-slate-700">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Username</label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-3.5 text-slate-400"><i data-lucide="at-sign" width="18"></i></span>
+                                        <input type="text" id="input-username" required
+                                            class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-cyan-500 outline-none transition font-medium text-slate-700">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-3.5 text-slate-400"><i data-lucide="mail" width="18"></i></span>
+                                        <input type="email" id="input-email"
+                                            class="w-full pl-12 pr-4 py-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed font-medium">
+                                    </div>
+                                    <p class="text-xs text-slate-400 mt-1 ml-1">*Email tidak dapat diubah</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100">
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Password Baru <span class="font-normal text-slate-400">(Opsional)</span></label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-3.5 text-slate-400"><i data-lucide="lock" width="18"></i></span>
+                                    <input type="password" id="input-password" placeholder="Kosongkan jika tidak ingin mengubah password"
+                                        class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-cyan-500 outline-none transition font-medium text-slate-700">
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-end gap-4 pt-4">
+                                <button type="submit" id="save-btn" 
+                                    class="px-8 py-3 bg-cyan-600 text-white font-bold rounded-xl shadow-lg shadow-cyan-500/30 hover:bg-cyan-700 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                                    <span>Simpan Perubahan</span>
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white pt-10 pb-10 border-t border-slate-200 mt-auto">
+        <div class="container mx-auto px-6 text-center text-sm text-slate-500">
+            <span class="font-serif font-bold text-lg text-slate-800">Nature Kaltim.</span>
+            <span class="ml-2">© 2026</span>
+        </div>
+    </footer>
+
+    <script type="module" src="profile.js"></script>
+    <script>
+        window.addEventListener('load', () => { if(window.lucide) lucide.createIcons(); });
+    </script>
+</body>
+</html>

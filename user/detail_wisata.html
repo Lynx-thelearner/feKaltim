@@ -1,0 +1,140 @@
+    <!DOCTYPE html>
+    <html lang="id" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detail Wisata - Nature Kaltim</title>
+        
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        
+        <style>
+            body { font-family: 'Manrope', sans-serif; }
+            .font-serif { font-family: 'Playfair Display', serif; }
+            .skeleton {
+                background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+                background-size: 200% 100%;
+                animation: shimmer 1.5s infinite;
+            }
+            @keyframes shimmer {
+                0% { background-position: 200% 0; }
+                100% { background-position: -200% 0; }
+            }
+        </style>
+    </head>
+    <body class="bg-slate-50 text-slate-800">
+
+        <div id="loading-state" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+            <div class="flex flex-col items-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mb-4"></div>
+                <p class="text-slate-500 animate-pulse">Memuat destinasi...</p>
+            </div>
+        </div>
+
+        <div id="main-content" class="hidden min-h-screen flex flex-col pb-20">
+            
+            <div class="h-[60vh] md:h-[70vh] relative bg-slate-900 flex items-center justify-center">
+                <img id="hero-image" src="" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-700" alt="Detail Wisata">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
+                
+                <a href="catalog.html" class="absolute top-8 left-6 md:left-12 bg-white/20 backdrop-blur-md p-3 rounded-full text-white hover:bg-cyan-600 transition-all z-20 shadow-lg">
+                    <i data-lucide="chevron-left" width="24"></i>
+                </a>
+
+                <div class="relative z-10 container mx-auto px-6 text-center mt-20">
+                    
+                    <div class="flex justify-center mb-6">
+                        <span id="hero-category" class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] backdrop-blur-md border shadow-sm bg-white/20 border-white/30 text-white">
+                            WISATA
+                        </span>
+                    </div>
+
+                    <h1 id="hero-title" class="text-5xl md:text-7xl font-serif text-white mb-6 shadow-sm leading-tight drop-shadow-lg">
+                        Nama Wisata
+                    </h1>
+
+                    <div id="hero-tags" class="flex flex-wrap justify-center gap-2 mb-6">
+                        </div>
+
+                    <div class="flex items-center justify-center text-slate-200 text-lg font-light gap-2">
+                        <i data-lucide="map-pin" class="text-cyan-400" width="20"></i> 
+                        <span id="hero-location">Lokasi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 md:px-6 -mt-16 relative z-20">
+                <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden min-h-[500px]">
+                    
+                    <div class="p-8 md:p-12 bg-white">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                            
+                    <div class="lg:col-span-2">
+        <div class="mb-10 border-b border-slate-100 pb-8">
+            <h3 class="text-2xl font-serif text-slate-800 mb-4 font-bold flex items-center gap-2">
+                <i data-lucide="align-left" class="text-cyan-600" width="24"></i> Tentang Wisata
+            </h3>
+            <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed text-justify">
+                <p id="info-description">
+                    <span class="animate-pulse bg-slate-200 text-transparent rounded">Memuat deskripsi...</span>
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-2xl font-serif text-slate-800 mb-6 font-bold flex items-center gap-2">
+                <i data-lucide="camera" class="text-cyan-600" width="24"></i> Galeri Wisata
+            </h3>
+            
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                </div>
+
+            <p id="no-gallery-msg" class="hidden text-slate-400 italic mt-4 bg-slate-50 p-4 rounded-xl text-center border border-slate-100">
+                Belum ada foto galeri tambahan untuk wisata ini.
+            </p>
+        </div>
+
+    </div>
+
+                            <div class="lg:col-span-1 space-y-6">
+                                
+                                <div class="bg-cyan-50 p-6 rounded-2xl border border-cyan-100 transition hover:shadow-md">
+                                    <div class="flex items-start gap-4">
+                                        <div class="bg-cyan-100 p-3 rounded-full text-cyan-600"><i data-lucide="tag" width="20"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800 text-sm uppercase mb-1">Harga Tiket</h4>
+                                            <p id="info-price" class="text-cyan-700 font-bold text-xl">Rp 0</p>
+                                            <p class="text-xs text-slate-500 mt-1">*Per orang</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 transition hover:shadow-md">
+                                    <div class="flex items-start gap-4">
+                                        <div class="bg-white p-3 rounded-full text-slate-600 shadow-sm"><i data-lucide="clock" width="20"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800 text-sm uppercase mb-1">Jam Operasional</h4>
+                                            <p id="info-hours" class="text-slate-700 font-medium">-</p>
+                                            <p class="text-xs text-slate-400 mt-1">WITA</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 transition hover:shadow-md">
+                                    <h4 class="font-bold text-slate-800 text-sm uppercase mb-4 flex items-center gap-2">
+                                        <i data-lucide="check-circle" class="text-cyan-600" width="16"></i> Fasilitas Tersedia
+                                    </h4>
+                                    <ul id="info-facilities" class="space-y-3">
+                                        </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="detail_wisata.js"></script>
+    </body>
+    </html>

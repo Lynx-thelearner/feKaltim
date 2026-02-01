@@ -1,96 +1,87 @@
-import API_URL from "/config.js";
+import API_URL from "/config.js"; // Pastikan path config benar (naik 2 level)
 
 const tableBody = document.getElementById("category-tbody");
+const token = localStorage.getItem("token");
 
-// 1. FUNGSI FETCH DATA (GET)
-// GANTI BAGIAN INI DI DALAM fetchCategories
-// 1. FUNGSI FETCH DATA (GET) YANG SUDAH DIPERBAIKI
-// 1. FUNGSI FETCH DATA (GET) - VERSI FINAL
+// 1. Cek Token
+if (!token) {
+    alert("Sesi habis. Silakan login kembali.");
+    window.location.href = "../../logres/login.html";
+}
+
+// 2. FUNGSI UTAMA FETCH
 async function fetchCategories() {
   try {
-    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Memuat data...</td></tr>`;
+    // Tampilkan Loading
+    tableBody.innerHTML = `<tr><td colspan="3" class="p-8 text-center text-gray-400">Memuat data...</td></tr>`;
 
-    // Request ke API
-    const response = await fetch(`${API_URL}/category/`, { 
+    // Fetch ke endpoint /category/ (Sesuai Swagger)
+    const res = await fetch(`${API_URL}/category/`, {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        "ngrok-skip-browser-warning": "true"
-      },
+        "Authorization": `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "true",
+        "Accept": "application/json"
+      }
     });
 
-    // 1. Cek Error HTTP (404, 500, dll)
-    if (!response.ok) {
-      const text = await response.text();
-      console.error("Server Error:", text);
-      throw new Error(
-        `Request gagal: ${response.status} ${response.statusText}`,
-      );
+    // Cek Status HTTP
+    if (!res.ok) {
+        throw new Error(`Gagal mengambil data: ${res.status}`);
     }
 
-    // --- BAGIAN INI DIHAPUS ---
-    // Kita hapus pengecekan content-type karena backend mungkin lupa mengirim header json
-    // ---------------------------
+    // Parse JSON
+    const result = await res.json();
+    
+    // Normalisasi Data (Handle {data: []} atau [])
+    const categories = Array.isArray(result) ? result : (result.data || []);
 
-    // 2. Langsung coba parsing JSON
-    // Jika ternyata isinya HTML, baris ini akan error dan loncat ke 'catch'
-    const data = await response.json();
-
-    // Normalisasi data (handle jika dibungkus { data: [] } atau array langsung)
-    const categories = Array.isArray(data) ? data : data.data || [];
-
+    // Render ke Tabel
     renderTable(categories);
+
   } catch (error) {
-    console.error("Error:", error);
-
-    let pesanError = error.message;
-    // Jika error parsing JSON (artinya dapet HTML)
-    if (error.name === "SyntaxError") {
-      pesanError = "Data tidak valid (HTML). Cek URL API.";
-    }
-
+    console.error("Fetch Error:", error);
     tableBody.innerHTML = `
       <tr>
-        <td colspan="3" style="text-align:center; color:red;">
-          Gagal memuat data.<br>
-          <small>${pesanError}</small>
+        <td colspan="3" class="p-8 text-center text-red-500">
+            Gagal memuat data. <br>
+            <small>${error.message}</small>
         </td>
       </tr>`;
   }
 }
 
-// 2. FUNGSI RENDER TABEL
+// 3. FUNGSI RENDER TABEL
 function renderTable(categories) {
   if (categories.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Tidak ada data kategori.</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="3" class="p-8 text-center text-gray-500">Belum ada data kategori.</td></tr>`;
     return;
   }
 
- let rows = "";
+  let rows = "";
   categories.forEach((category, index) => {
-    // Pastikan property ID sesuai (id atau id_category)
-    const id = category.id || category.id_category;
+    // Pastikan ID sesuai database (id_category atau id)
+    // Coba log object category di console jika ragu: console.log(category)
+    const id = category.id_category || category.id; 
 
     rows += `
-      <tr class="hover:bg-gray-50 border-b border-gray-200 transition-colors duration-200">
-        <td class="px-6 py-4 text-gray-700 font-medium">
-            ${index + 1}
-        </td>
-
-        <td class="px-6 py-4 text-gray-800 font-semibold">
+      <tr class="hover:bg-gray-50 border-b border-gray-100 transition-colors">
+        <td class="px-6 py-4 font-medium text-gray-500">${index + 1}</td>
+        
+        <td class="px-6 py-4 font-semibold text-gray-800">
             ${category.name}
         </td>
 
-        <td class="px-6 py-4 ">
-          <div class="flex items-center justify-center gap-3">
+        <td class="px-6 py-4">
+          <div class="flex items-center justify-center gap-2">
              <a href="edit.html?id_category=${id}"
-                class="flex items-center px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105">
-                ✏️ <span class="ml-2">Edit</span>
+                class="flex items-center px-3 py-1.5 bg-amber-100 text-amber-600 hover:bg-amber-200 rounded-lg text-xs font-semibold transition-colors">
+                ✏️ Edit
              </a>
-
-             <button class="btn-delete flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105"
-                data-id="${id}">
-                🗑️ <span class="ml-2">Hapus</span>
+             
+             <button class="btn-delete flex items-center px-3 py-1.5 bg-red-100 text-red-600 hover:bg-red-200 rounded-lg text-xs font-semibold transition-colors"
+                data-id="${id}" data-name="${category.name}">
+                🗑️ Hapus
              </button>
           </div>
         </td>
@@ -100,42 +91,39 @@ function renderTable(categories) {
 
   tableBody.innerHTML = rows;
 
-  // Pasang event listener untuk tombol delete setelah render selesai
-  document.querySelectorAll(".btn-delete").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const id = this.getAttribute("data-id");
-      deleteCategory(id);
+  // Pasang Event Listener Delete
+  document.querySelectorAll(".btn-delete").forEach(btn => {
+    btn.addEventListener("click", function() {
+        const id = this.getAttribute("data-id");
+        const name = this.getAttribute("data-name");
+        deleteCategory(id, name);
     });
   });
 }
 
-// 3. FUNGSI HAPUS (DELETE)
-async function deleteCategory(id) {
-  const confirmDelete = confirm(
-    "Apakah Anda yakin ingin menghapus kategori ini?",
-  );
-  if (!confirmDelete) return;
+// 4. FUNGSI DELETE
+async function deleteCategory(id, name) {
+    if (!confirm(`Hapus kategori "${name}"?`)) return;
 
-  try {
-    const response = await fetch(`${API_URL}/category/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+        const res = await fetch(`${API_URL}/category/${id}`, { // Endpoint Delete biasanya /category/{id} tanpa slash akhir
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "ngrok-skip-browser-warning": "true"
+            }
+        });
 
-    if (!response.ok) {
-      throw new Error("Gagal menghapus kategori");
+        if (!res.ok) throw new Error("Gagal menghapus.");
+
+        alert("Berhasil dihapus!");
+        fetchCategories(); // Refresh
+
+    } catch (error) {
+        console.error("Delete Error:", error);
+        alert("Gagal menghapus: " + error.message);
     }
-
-    alert("Kategori berhasil dihapus!");
-    // Refresh tabel tanpa reload halaman
-    fetchCategories();
-  } catch (error) {
-    console.error("Error deleting:", error);
-    alert("Gagal menghapus kategori. Cek console.");
-  }
 }
 
-// Jalankan fungsi saat halaman dimuat
-document.addEventListener("DOMContentLoaded", fetchCategories);
+// Jalankan saat load
+fetchCategories();

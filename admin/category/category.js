@@ -1,5 +1,15 @@
 import API_URL from "/config.js";
 
+
+const token = localStorage.getItem("token");
+
+// 1. Cek Token
+if (!token) {
+    alert("Sesi habis. Silakan login kembali.");
+    window.location.href = "../../logres/login.html";
+}
+
+
 const form = document.getElementById("category-form");
 // MENYESUAIKAN: Definisi variabel yang sebelumnya error
 const feedback = document.getElementById("feedback-message");

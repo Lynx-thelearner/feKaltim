@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Wisata - Admin Nature Kaltim</title>
+    <title>Galeri & Cover - Admin Nature Kaltim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
@@ -27,11 +26,9 @@
                 <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
                     <span class="mr-3">🏠</span> Dashboard
                 </a>
-                
-                <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
+                <a href="../wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
                     <span class="mr-3">🌲</span> Data Wisata
                 </a>
-
                 <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
                     <span class="mr-3">📂</span> Kategori
                 </a>
@@ -41,16 +38,17 @@
                 <a href="../facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
                     <span class="mr-3">🛠️</span> Fasilitas
                 </a>
-                <a href="../image-wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
+                
+                <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
                     <span class="mr-3">🖼️</span> Gambar
                 </a>
                 <a href="../user/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
-                    <span class="mr-3">👤</span> User
+                    <span class="mr-3">👤</span> Users
                 </a>
             </nav>
 
             <div class="p-4 border-t border-slate-700">
-                <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors shadow-lg">
+                <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
                     <span class="mr-2">🚪</span> Logout
                 </button>
             </div>
@@ -59,48 +57,59 @@
         <main class="flex-1 flex flex-col h-screen overflow-hidden">
             
             <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
-                <h1 class="text-xl font-semibold text-gray-800">Manajemen Destinasi Wisata</h1>
-                <div class="flex items-center gap-3">
-                    <div class="text-right">
-                        <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
-                        <div class="text-xs text-gray-500">Administrator</div>
-                    </div>
-                    <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200">A</div>
-                </div>
+                <h1 class="text-xl font-semibold text-gray-800">Manajemen Galeri & Cover</h1>
+                <div class="text-sm text-gray-500">Halo, Admin</div>
             </header>
 
             <div class="flex-1 overflow-y-auto p-8">
                 
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-700">Daftar Wisata</h2>
-                        <p class="text-sm text-gray-500 mt-1">Kelola data wisata, lokasi, harga, dan jam operasional.</p>
+                        <h2 class="text-2xl font-bold text-gray-700">Daftar Gambar Wisata</h2>
+                        <p class="text-sm text-gray-500 mt-1">Atur gambar cover utama (thumbnail) untuk setiap wisata.</p>
                     </div>
-                    <a href="create.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow-lg shadow-blue-500/30 transition duration-200 flex items-center transform hover:-translate-y-0.5">
-                        <span class="text-lg mr-2">+</span> Tambah Wisata
+                    <a href="create.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center">
+                        <span class="text-lg mr-2">+</span> Upload Gambar
                     </a>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-md overflow-x-auto border border-gray-100">
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <div class="w-full md:w-1/3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Wisata</label>
+                        <select id="filter-wisata" onchange="applyFilters()" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <option value="all">Semua Wisata</option>
+                            </select>
+                    </div>
+
+                    <div class="w-full md:w-1/3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipe Gambar</label>
+                        <select id="filter-type" onchange="applyFilters()" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <option value="all">Semua Tipe</option>
+                            <option value="cover">✅ Cover Utama</option>
+                            <option value="gallery">🖼️ Galeri</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
                     <table class="w-full text-left border-collapse">
                         <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-bold tracking-wider">
                             <tr>
+                                
                                 <th class="px-6 py-4 border-b">No</th>
-                                <th class="px-6 py-4 border-b">Nama Wisata</th>
-                                <th class="px-6 py-4 border-b">Lokasi</th>
-                                <th class="px-6 py-4 border-b">Harga Tiket</th>
-                                <th class="px-6 py-4 border-b">Jam Operasional</th>
-                                <th class="px-6 py-4 border-b">Kategori</th>
-                                <th class="px-6 py-4 border-b text-center">Status</th>
+                                <th class="px-6 py-4 border-b">ID Wisata</th> 
+                                <th class="px-6 py-4 border-b">Wisata</th>
+                                <th class="px-6 py-4 border-b">Preview</th>
+                                <th class="px-6 py-4 border-b">Status Cover</th>
                                 <th class="px-6 py-4 border-b text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="wisata-tbody" class="text-gray-600 text-sm divide-y divide-gray-200">
+                        <tbody id="image-tbody" class="text-gray-600 text-sm divide-y divide-gray-200">
                             <tr>
-                                <td colspan="8" class="p-8 text-center text-gray-400">
+                                <td colspan="6" class="p-8 text-center text-gray-400">
                                     <div class="flex flex-col items-center justify-center">
                                         <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mb-2"></div>
-                                        Memuat data wisata...
+                                        Memuat data gambar...
                                     </div>
                                 </td>
                             </tr>
@@ -115,6 +124,7 @@
 
     <script type="module" src="index.js"></script>
     <script>
+        // Fallback jika logout.js tidak ada
         function handleLogout() {
             if (confirm("Yakin ingin keluar?")) {
                 localStorage.removeItem("token");

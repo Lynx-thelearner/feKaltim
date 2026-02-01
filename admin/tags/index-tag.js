@@ -1,5 +1,12 @@
 import API_URL from "/config.js";
 
+const token = localStorage.getItem("token");
+// 1. Cek Token
+if (!token) {
+    alert("Sesi habis. Silakan login kembali.");
+    window.location.href = "../../logres/login.html";
+}
+
 // 1. PERBAIKAN ID HTML
 // Pastikan di index.html ID tbody-nya adalah "tags-tbody"
 const tableBody = document.getElementById("tag-tbody"); 
@@ -52,28 +59,32 @@ async function fetchTags() {
 
 function renderTable(tags) {
   if (tags.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Tidak ada data tag.</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="3" class="p-8 text-center text-gray-500">Belum ada data tag.</td></tr>`;
     return;
   }
 
   let rows = "";
   tags.forEach((tag, index) => {
-    // Sesuaikan dengan respon backend (misal: id, id_tag, atau id_tags)
-    const id = tag.id || tag.id_tag;
+    const id = tag.id_tag || tag.id;
 
     rows += `
-      <tr class="hover:bg-gray-50 transition-colors duration-200">
-        <td class="px-6 py-4 font-medium">${index + 1}</td>
-        <td class="px-6 py-4 font-semibold text-gray-800">${tag.name}</td>
-        <td class="px-6 py-4">
+      <tr class="hover:bg-gray-50 border-b border-gray-100 transition-colors">
+        <td class="px-6 py-5 text-gray-600">${index + 1}</td>
+        
+        <td class="px-6 py-5 font-medium text-gray-800">
+            ${tag.name}
+        </td>
+
+        <td class="px-6 py-5">
           <div class="flex items-center justify-center gap-3">
              <a href="edit.html?id_tag=${id}"
-                class="flex items-center px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium rounded-lg shadow-sm transition-transform hover:scale-105">
-                ✏️ Edit
+                class="flex items-center px-4 py-1.5 bg-orange-100 text-orange-500 hover:bg-orange-200 rounded-full text-xs font-bold transition-colors">
+                <span class="mr-1">✏️</span> Edit
              </a>
-             <button class="btn-delete flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow-sm transition-transform hover:scale-105"
-                data-id="${id}">
-                🗑️ Hapus
+             
+             <button class="btn-delete flex items-center px-4 py-1.5 bg-red-100 text-red-500 hover:bg-red-200 rounded-full text-xs font-bold transition-colors"
+                data-id="${id}" data-name="${tag.name}">
+                <span class="mr-1">🗑️</span> Hapus
              </button>
           </div>
         </td>
@@ -83,11 +94,12 @@ function renderTable(tags) {
 
   tableBody.innerHTML = rows;
 
-  // Event Listener Delete
+  // Re-attach event listeners
   document.querySelectorAll(".btn-delete").forEach((btn) => {
     btn.addEventListener("click", function () {
       const id = this.getAttribute("data-id");
-      deleteTag(id); // Panggil fungsi deleteTag yang baru
+      const name = this.getAttribute("data-name");
+      deleteTag(id, name);
     });
   });
 }

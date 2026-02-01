@@ -1,49 +1,170 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Wisata</title>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Wisata - Admin Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      .error { color: red; }
-      .success { color: green; }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #555; }
     </style>
-  </head>
-  <body>
-    <form id="wisata-form">
-      <h1>Create Wisata</h1>
-      
-      <label for="nama_wisata">Wisata Name:</label>
-      <input type="text" id="nama_wisata" name="wisata-name" required />
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
+        
+        <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
+            <div class="p-6 text-center border-b border-slate-700">
+                <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
+                <p class="text-xs text-gray-400 mt-1">Pengelola Wisata Kaltim</p>
+            </div>
 
-      <label for="deskripsi">Deskripsi</label>
-      <input type="text" id="deskripsi" name="deskripsi" required />
+            <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+                <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
+                    <span class="mr-3">🏠</span> Dashboard
+                </a>
+                
+                <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
+                    <span class="mr-3">🌲</span> Data Wisata
+                </a>
 
-      <label for="lokasi">Lokasi</label>
-      <input type="text" id="lokasi" name="lokasi" required />
+                <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
+                    <span class="mr-3">📂</span> Kategori
+                </a>
+                <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
+                    <span class="mr-3">🏷️</span> Tags
+                </a>
+                <a href="../facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
+                    <span class="mr-3">🛠️</span> Fasilitas
+                </a>
+                <a href="../image-wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
+                    <span class="mr-3">🖼️</span> Gambar
+                </a>
+                <a href="../user/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
+                    <span class="mr-3">👤</span> User
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-700">
+                <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors shadow-lg">
+                    <span class="mr-2">🚪</span> Logout
+                </button>
+            </div>
+        </aside>
 
-      <label for="ticket_price">Harga Tiket</label>
-      <input type="number" id="ticket_price" name="ticket_price" required />
+        <main class="flex-1 flex flex-col h-screen overflow-hidden">
+            <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+                <h1 class="text-xl font-semibold text-gray-800">Tambah Data Wisata</h1>
+                <div class="flex items-center gap-3">
+                    <div class="text-right">
+                        <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
+                        <div class="text-xs text-gray-500">Administrator</div>
+                    </div>
+                    <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200">A</div>
+                </div>
+            </header>
 
-      <label for="open_time">Open Time</label>
-      <input type="number" id="open_time" name="open_time" required />
+            <div class="flex-1 overflow-y-auto p-8">
+                <nav class="text-sm text-gray-500 mb-6">
+                    <ol class="list-reset flex">
+                        <li><a href="index.html" class="text-blue-600 hover:text-blue-800">Data Wisata</a></li>
+                        <li><span class="mx-2">/</span></li>
+                        <li class="text-gray-700">Tambah Baru</li>
+                    </ol>
+                </nav>
 
-      <label for="close_time">Close Time</label>
-      <input type="number" id="close_time" name="close_time" required />
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-8">
+                        <h2 class="text-2xl font-bold text-gray-700 mb-6">Form Input Wisata</h2>
+                        
+                        <form id="create-form" class="space-y-6">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Wisata</label>
+                                    <input type="text" id="nama" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition" placeholder="Contoh: Pulau Derawan">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Harga Tiket (Rp)</label>
+                                    <input type="number" id="harga" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition" placeholder="0">
+                                </div>
+                            </div>
 
-      <section>
-        <label for="status">Status</label>
-        <select id="status" name="status" required>
-          <!-- Options akan diisi secara dinamis -->
-        </select>
-      </section>
-      <p id="feedback-message"></p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                                    <input type="text" id="lokasi" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition" placeholder="Kecamatan, Kota...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
+                                    <select id="category-select" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white">
+                                        <option value="">Memuat Kategori...</option>
+                                    </select>
+                                </div>
 
-      <label for=""></label>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Status Publikasi</label>
+                                    <select id="status-select" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-green-500 bg-white">
+                                        <option value="draft">Draft (Sembunyikan)</option>
+                                        <option value="published">Published (Tampilkan)</option>
+                                    </select>
+                                    <p class="text-xs text-gray-500 mt-1">Hanya status 'Published' yang akan muncul di aplikasi User.</p>
+                                </div>
+                            </div>
 
-      <button type="submit" id="submit-btn">Create Wisata</button>
-    </form>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Lengkap</label>
+                                <textarea id="deskripsi" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition" placeholder="Jelaskan keindahan wisata ini..."></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jam Buka</label>
+                                    <input type="time" id="open-time" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jam Tutup</label>
+                                    <input type="time" id="close-time" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Fasilitas Tersedia</label>
+                                <div id="facilities-container" class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-50 p-4 rounded-lg border border-gray-200 h-32 overflow-y-auto">
+                                    <span class="text-gray-400 text-sm italic">Memuat fasilitas...</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+    <label class="block text-sm font-bold text-gray-700 mb-2">Tags / Label</label>
+    <div id="tags-container" class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-50 p-4 rounded-xl border border-gray-200">
+        <span class="text-gray-400 text-xs">Loading tags...</span>
+    </div>
+</div>
+
+                            <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-100">
+                                <a href="index.html" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition">Batal</a>
+                                <button type="submit" id="submit-btn" class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 shadow-lg shadow-green-500/30 transition flex items-center">
+                                    <span>Simpan Data</span>
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script type="module" src="create.js"></script>
-  </body>
+    <script>
+        function handleLogout() {
+            if (confirm("Yakin ingin keluar?")) {
+                localStorage.removeItem("token");
+                window.location.href = "../../logres/login.html";
+            }
+        }
+    </script>
+</body>
 </html>

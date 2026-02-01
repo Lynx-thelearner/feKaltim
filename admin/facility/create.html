@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Fasilitas - Admin Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
+      
+      <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
+        <div class="p-6 text-center border-b border-slate-700">
+          <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
+          <p class="text-xs text-gray-400 mt-1">Pengelola Wisata Kaltim</p>
+        </div>
+
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+          <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🏠</span> Dashboard
+          </a>
+          <a href="../wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🌲</span> Data Wisata
+          </a>
+          <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">📂</span> Kategori
+          </a>
+          <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🏷️</span> Tags
+          </a>
+          
+          <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
+            <span class="mr-3">🛠️</span> Fasilitas
+          </a>
+          
+          <a href="../image-wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🖼️</span> Gambar
+          </a>
+        
+          <a href="../user/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">👤</span> User
+          </a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-700">
+          <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+            <span class="mr-2">🚪</span> Logout
+          </button>
+        </div>
+      </aside>
+
+      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+          <h1 class="text-xl font-semibold text-gray-800">Tambah Fasilitas Baru</h1>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
+              <div class="text-xs text-gray-500">Administrator</div>
+            </div>
+            <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200">A</div>
+          </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8">
+          <nav class="text-sm text-gray-500 mb-6">
+            <ol class="list-reset flex">
+              <li><a href="index.html" class="text-blue-600 hover:text-blue-800">Fasilitas</a></li>
+              <li><span class="mx-2">/</span></li>
+              <li class="text-gray-700">Tambah Data</li>
+            </ol>
+          </nav>
+
+          <div class="max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center mb-6">
+                <span class="bg-green-100 text-green-600 p-2 rounded-lg mr-3">🛠️</span>
+                <h2 class="text-2xl font-bold text-gray-700">Form Fasilitas</h2>
+              </div>
+
+              <form id="facility-form" class="space-y-6">
+                <div>
+                  <label for="facility-name" class="block text-sm font-medium text-gray-700 mb-2">Nama Fasilitas</label>
+                  <input type="text" id="facility-name" name="facility-name" placeholder="Contoh: Toilet Umum, Area Parkir" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200" />
+                  <p class="text-xs text-gray-500 mt-1">Masukkan nama fasilitas penunjang wisata.</p>
+                </div>
+
+                <div id="feedback-message" class="text-sm font-medium"></div>
+
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+                  <a href="index.html" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition duration-200">Batal</a>
+                  <button type="submit" id="submit-btn" class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 shadow-lg shadow-green-500/30 transition duration-200 flex items-center">
+                    <span>Simpan</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="create.js"></script>
+    <script>
+     function handleLogout() {
+    if (confirm("Yakin ingin keluar?")) {
+      localStorage.removeItem("token");
+      // Tambahkan satu lagi "../" agar naik 2 level
+      window.location.href = "../../logres/login.html"; 
+    }
+  }
+    </script>
+  </body>
+</html>

@@ -1,11 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Admin Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
+      
+      <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
+        <div class="p-6 text-center border-b border-slate-700">
+          <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
+          <p class="text-xs text-gray-400 mt-1">Pengelola Wisata Kaltim</p>
+        </div>
+
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+          <a href="dashboard.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
+            <span class="mr-3">🏠</span> Dashboard
+          </a>
+          <a href="wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🌲</span> Data Wisata
+          </a>
+          <a href="category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">📂</span> Kategori
+          </a>
+          <a href="tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🏷️</span> Tags
+          </a>
+          <a href="facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🛠️</span> Fasilitas
+          </a>
+          <a href="image-wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🖼️</span> Gambar
+          </a>
+          <a href="user/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">👤</span> User
+          </a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-700">
+          <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+            <span class="mr-2">🚪</span> Logout
+          </button>
+        </div>
+      </aside>
+
+      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+          <h1 class="text-xl font-semibold text-gray-800">Dashboard Overview</h1>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
+              <div class="text-xs text-gray-500">Administrator</div>
+            </div>
+            <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200">A</div>
+          </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8">
+          <div class="bg-gradient-to-r from-green-600 to-teal-500 rounded-2xl p-8 mb-8 text-white shadow-lg">
+            <h2 class="text-3xl font-bold mb-2">Selamat Datang di Nature Kaltim! 👋</h2>
+            <p class="opacity-90">Pantau perkembangan data wisata dan pengguna aplikasi Anda di sini.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center hover:shadow-md transition-shadow">
+              <div class="p-3 bg-green-100 text-green-600 rounded-lg mr-4"><span class="text-2xl">🌲</span></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Total Wisata</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="count-wisata">...</h3>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center hover:shadow-md transition-shadow">
+              <div class="p-3 bg-blue-100 text-blue-600 rounded-lg mr-4"><span class="text-2xl">👤</span></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Total User</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="count-users">...</h3>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center hover:shadow-md transition-shadow">
+              <div class="p-3 bg-orange-100 text-orange-600 rounded-lg mr-4"><span class="text-2xl">📂</span></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Kategori</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="count-category">...</h3>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center hover:shadow-md transition-shadow">
+              <div class="p-3 bg-pink-100 text-pink-600 rounded-lg mr-4"><span class="text-2xl">🏷️</span></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Total Tags</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="count-tags">...</h3>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center hover:shadow-md transition-shadow">
+              <div class="p-3 bg-purple-100 text-purple-600 rounded-lg mr-4"><span class="text-2xl">🛠️</span></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Fasilitas</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="count-facility">...</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+              <h3 class="font-bold text-gray-700 flex items-center gap-2">
+                <span>🕒</span> Riwayat Pengguna Terbaru
+              </h3>
+              <a href="user/index.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Lihat Semua →</a>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-bold tracking-wider">
+                  <tr>
+                    <th class="px-6 py-3 border-b">Nama</th>
+                    <th class="px-6 py-3 border-b">Username</th>
+                    <th class="px-6 py-3 border-b">Email</th>
+                    <th class="px-6 py-3 border-b text-center">Role</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-users-tbody" class="text-gray-600 text-sm divide-y divide-gray-200">
+                  <tr>
+                    <td colspan="4" class="p-6 text-center text-gray-400">Memuat data...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
+    <script type="module" src="../../logres/logout.js"></script>
+    <script>
+      function handleLogout() {
+        if (confirm("Yakin ingin keluar?")) {
+          localStorage.removeItem("token");
+          window.location.href = "../../logres/login.html";
+        }
+      }
+    </script>
+  </body>
 </html>

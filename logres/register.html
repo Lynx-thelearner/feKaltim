@@ -3,175 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Akun - Komunitas Pecinta Alam</title>
+    <title>Daftar Akun - Nature Kaltim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Reset dan Base Style */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            /* Background dari gambar yang diberikan */
-            background-image: url('Image_wisata.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Container Kartu */
-        .register-card {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-        }
-
-        /* Judul dan Subjudul */
-        .register-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            color: #333333;
-            margin-bottom: 10px;
-        }
-
-        .register-subtitle {
-            font-size: 14px;
-            color: #777777;
-            margin-bottom: 30px;
-        }
-
-        /* Form Styles */
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-group i {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: #a0a0a0;
-            font-size: 16px;
-        }
-
-        .input-group .toggle-password {
-            left: auto;
-            right: 15px;
-            cursor: pointer;
-        }
-
-        .register-input {
-            width: 100%;
-            padding: 12px 15px 12px 45px; /* Ruang untuk ikon */
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #333333;
-            background-color: #f9f9f9;
-            transition: border-color 0.3s ease;
-        }
-
-        .register-input:focus {
-            outline: none;
-            border-color: #008CBA;
-            background-color: #ffffff;
-        }
-
-        /* Tombol Daftar */
-        .register-button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            background-color: #008CBA; /* Warna biru-hijau dari gambar */
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .register-button:hover {
-            background-color: #0077a3;
-        }
-
-        .register-button i {
-            margin-left: 10px;
-        }
-
-        /* Link Login */
-        .login-link {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #777777;
-        }
-
-        .login-link a {
-            color: #008CBA;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
+        display: none;
+      }
     </style>
 </head>
-<body>
-    <div class="register-card">
-        <h1 class="register-title">Buat Akun</h1>
-        <p class="register-subtitle">Bergabung dengan komunitas pecinta alam</p>
+<body class="font-inter min-h-screen flex items-center justify-center p-4 bg-[url('Image_wisata.jpg')] bg-cover bg-center bg-no-repeat relative">
 
-        <form action="#" method="POST">
-            <div class="input-group">
-                <i class="far fa-user"></i>
-                <input type="text" class="register-input" placeholder="Nama Lengkap" required>
-            </div>
+    <div class="absolute inset-0 bg-black/20 z-0"></div>
 
-            <div class="input-group">
-                <i class="far fa-envelope"></i>
-                <input type="email" class="register-input" placeholder="Alamat Email" required>
-            </div>
-
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" class="register-input" placeholder="Kata Sandi" required>
-                <i class="far fa-eye toggle-password"></i>
-            </div>
-
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" class="register-input" placeholder="Konfirmasi Kata Sandi" required>
-                <i class="far fa-eye toggle-password"></i>
-            </div>
-
-            <button type="submit" class="register-button">
-                Daftar <i class="fas fa-arrow-right"></i>
-            </button>
-        </form>
-
-        <div class="login-link">
-            Sudah punya akun? <a href="login.html">Masuk</a>
+    <div class="relative z-10 w-full max-w-[500px] p-8 md:p-10 rounded-3xl shadow-2xl backdrop-blur-md bg-white/80 border border-white/50 transform transition-all animate-fade-in-up">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2 font-playfair">Buat Akun</h1>
+            <p class="text-gray-600 text-sm">Bergabung dengan komunitas pecinta alam</p>
         </div>
+
+        <form id="register-form" class="space-y-4">
+            
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-focus-within:text-[#0c969c] transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg>
+                </div>
+                <input type="text" id="nama" 
+                       class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 bg-white focus:outline-none focus:border-[#0c969c] focus:ring-2 focus:ring-[#0c969c]/20 transition-all"
+                       placeholder="Nama Lengkap" required>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-focus-within:text-[#0c969c] transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </div>
+                <input type="text" id="username" 
+                       class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 bg-white focus:outline-none focus:border-[#0c969c] focus:ring-2 focus:ring-[#0c969c]/20 transition-all"
+                       placeholder="Username" required>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-focus-within:text-[#0c969c] transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                </div>
+                <input type="email" id="email" 
+                       class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 bg-white focus:outline-none focus:border-[#0c969c] focus:ring-2 focus:ring-[#0c969c]/20 transition-all"
+                       placeholder="Alamat Email" required>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-focus-within:text-[#0c969c] transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    </svg>
+                </div>
+                <input type="password" id="password" required minlength="8"
+                       class="w-full pl-12 pr-12 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 bg-white focus:outline-none focus:border-[#0c969c] focus:ring-2 focus:ring-[#0c969c]/20 transition-all"
+                       placeholder="Kata Sandi">
+                
+                <button type="button" onclick="togglePassword('password')" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-focus-within:text-[#0c969c] transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    </svg>
+                </div>
+                <input type="password" id="confirm-password" required
+                       class="w-full pl-12 pr-12 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 bg-white focus:outline-none focus:border-[#0c969c] focus:ring-2 focus:ring-[#0c969c]/20 transition-all"
+                       placeholder="Konfirmasi Kata Sandi">
+                
+                <button type="button" onclick="togglePassword('confirm-password')" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="">
+            <div id="feedback"></div>
+            </div>
+
+            <button type="submit" id="submit" class="w-full bg-[#0c969c] hover:bg-[#097b80] text-white font-bold py-3.5 rounded-xl shadow-lg shadow-[#0c969c]/30 transition-all duration-200 flex items-center justify-center gap-2 transform active:scale-[0.98]">
+                <span>Daftar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+            </button>
+
+            <div class="text-center mt-6">
+                <p class="text-sm text-gray-600">
+                    Sudah punya akun? 
+                    <a href="login.html" class="text-[#0c969c] font-bold hover:underline">Masuk</a>
+                </p>
+            </div>
+        </form>
     </div>
+
+    <script type="module" src="/logres/register.js"></script>
+
+    <script>
+        function togglePassword(fieldId) {
+            const input = document.getElementById(fieldId);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+    </script>
+
 </body>
 </html>

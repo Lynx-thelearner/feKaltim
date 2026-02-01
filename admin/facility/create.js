@@ -1,30 +1,21 @@
 import API_URL from "/config.js";
 
-
-const form = document.getElementById("tags-form");
+const form = document.getElementById("facility-form");
+// MENYESUAIKAN: Definisi variabel yang sebelumnya error
 const feedback = document.getElementById("feedback-message");
 const submitBtn = document.getElementById("submit-btn");
-
-const token = localStorage.getItem("token");
-
-// 1. Cek Token
-if (!token) {
-    alert("Sesi habis. Silakan login kembali.");
-    window.location.href = "../../logres/login.html";
-}
-
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("tags-name").value.trim();
+  const name = document.getElementById("facility-name").value.trim();
 
   // Reset feedback
   feedback.textContent = "";
   feedback.className = "";
 
   if (!name) {
-    feedback.textContent = "Nama tags tidak boleh kosong.";
+    feedback.textContent = "Nama fasilitas tidak boleh kosong.";
     feedback.className = "error";
     return;
   }
@@ -34,7 +25,9 @@ form.addEventListener("submit", async (e) => {
   submitBtn.textContent = "Loading...";
 
   try {
-    const res = await fetch(`${API_URL}/tag`, {
+    // MENYESUAIKAN: Endpoint diganti agar sesuai konteks (bukan user/register)
+    // Pastikan rute backendmu benar, biasanya /category atau /categories
+    const res = await fetch(`${API_URL}/facility`, { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +46,7 @@ form.addEventListener("submit", async (e) => {
     }
 
     if (!res.ok) {
-      let message = "Gagal membuat Tags.";
+      let message = "Gagal membuat kategori.";
 
       if (typeof data.detail === "string") {
         message = data.detail;
@@ -72,17 +65,17 @@ form.addEventListener("submit", async (e) => {
 
       feedback.textContent = message;
       feedback.className = "error";
-      // Jika error, jangan redirect, stop di sini.
-      // throw new Error(message); // Opsional jika ingin lompat ke catch
+
     } else {
       // SUKSES
-      feedback.textContent = "Tags berhasil dibuat!";
+      feedback.textContent = "Fasilitas berhasil dibuat!";
       feedback.className = "success";
-
+      
       setTimeout(() => {
-        window.location.href = "/admin/tags/index.html";
+        window.location.href = "/admin/facility/index.html";
       }, 1200);
     }
+
   } catch (err) {
     console.error(err);
     feedback.textContent = "Terjadi kesalahan jaringan atau server.";
@@ -90,9 +83,9 @@ form.addEventListener("submit", async (e) => {
   } finally {
     // MENYESUAIKAN: Kembalikan tombol seperti semula setelah proses selesai
     if (!feedback.classList.contains("success")) {
-      // Hanya enable tombol lagi jika belum sukses (kalau sukses kan mau redirect)
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Create Tags";
+        // Hanya enable tombol lagi jika belum sukses (kalau sukses kan mau redirect)
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Facility";
     }
   }
 });

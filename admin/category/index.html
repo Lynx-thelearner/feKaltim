@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
     <title>Daftar Kategori - Admin Nature Kaltim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Custom scrollbar agar lebih rapi */
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -24,6 +24,7 @@
   </head>
   <body class="bg-gray-100 font-sans antialiased">
     <div class="flex h-screen overflow-hidden">
+      
       <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
         <div class="p-6 text-center border-b border-slate-700">
           <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
@@ -51,12 +52,30 @@
           >
             <span class="mr-3">📂</span> Kategori
           </a>
+                   <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <span class="mr-3">🏷️</span> Tags
+          </a>
 
           <a
-            href="../tags/index.html"
+            href="../facility/index.html"
             class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
           >
-            <span class="mr-3">🏷️</span> Tags
+            <span class="mr-3">🛠️</span> Fasilitas
+          </a>
+
+          <a
+            href="../image-wisata/index.html"
+            class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
+          >
+            <span class="mr-3">🖼️</span> Gambar
+          </a>
+
+ 
+          <a
+            href="../user/index.html"
+            class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors"
+          >
+            <span class="mr-3">👤</span> User
           </a>
         </nav>
 
@@ -77,7 +96,19 @@
           <h1 class="text-xl font-semibold text-gray-800">
             Manajemen Kategori Wisata
           </h1>
-          <div class="text-sm text-gray-500">Halo, Admin</div>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-sm font-medium text-gray-800" id="admin-name">
+                Admin
+              </div>
+              <div class="text-xs text-gray-500">Administrator</div>
+            </div>
+            <div
+              class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200"
+            >
+              A
+            </div>
+          </div>
         </header>
 
         <div class="flex-1 overflow-y-auto p-8">
@@ -91,21 +122,24 @@
             </a>
           </div>
 
-          <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
             <table class="w-full text-left border-collapse">
               <thead
-                class="bg-gray-100 text-gray-600 uppercase text-xs font-bold tracking-wider"
+                class="bg-gray-50 text-gray-600 uppercase text-xs font-bold tracking-wider"
               >
                 <tr>
-                  <th class="px-6 py-4 text-left rounded-tl-lg">No</th>
-                  <th class="px-6 py-4 text-left">Nama Kategori</th>
-                  <th class="px-6 py-4 text-center rounded-tr-lg">Aksi</th>
+                  <th class="px-6 py-4 text-left border-b">No</th>
+                  <th class="px-6 py-4 text-left border-b">Nama Kategori</th>
+                  <th class="px-6 py-4 text-center border-b">Aksi</th>
                 </tr>
               </thead>
-              <tbody id="category-tbody" class="text-gray-600 text-sm">
+              <tbody id="category-tbody" class="text-gray-600 text-sm divide-y divide-gray-200">
                 <tr>
-                  <td colspan="3" class="p-4 text-center text-gray-400">
-                    Memuat data...
+                  <td colspan="3" class="p-8 text-center text-gray-400">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mb-2"></div>
+                        Memuat data kategori...
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -116,15 +150,13 @@
     </div>
 
     <script type="module" src="index-category.js"></script>
-
     <script>
-      function handleLogout() {
-        if (confirm("Apakah Anda yakin ingin keluar?")) {
-          localStorage.removeItem("token"); // Hapus token
-          localStorage.removeItem("user"); // Hapus data user (opsional)
-          window.location.href = "/login.html"; // Redirect ke halaman login
-        }
-      }
+function handleLogout() {
+    if (confirm("Yakin ingin keluar?")) {
+      localStorage.clear();
+      window.location.href = "../../logres/login.html"; 
+    }
+  }
     </script>
   </body>
 </html>

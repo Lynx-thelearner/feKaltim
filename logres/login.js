@@ -26,13 +26,13 @@ loginBtn.addEventListener("click", async (e) => {
 
     const data = await response.json();
     localStorage.setItem("token", data.access_token);
-
+    
     const role = getRole();
 
     if (role === "admin") {
       window.location.href = "/admin/dashboard.html";
     } else {
-      window.location.href = "/home.html";
+      window.location.href = "/user/home.html";
     }
 
   } catch (err) {
