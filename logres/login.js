@@ -70,6 +70,11 @@ loginBtn.addEventListener("click", async (e) => {
     const data = await response.json();
     localStorage.setItem("token", data.access_token);
     
+    // Simpan data user ke localStorage agar bisa diakses di halaman lain
+    if (data.user) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+    }
+    
     // Ambil data user/role
     const role = getRole();
 

@@ -38,7 +38,10 @@ function checkAuth() {
         mobileAuth.innerHTML = `
             <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg mb-2">
                 <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold">${(user.name || 'U').charAt(0)}</div>
-                <span class="font-bold text-slate-700">${user.name || 'User'}</span>
+                <div class="flex-1">
+                    <p class="text-xs text-slate-500">Login sebagai</p>
+                    <p class="font-bold text-slate-800">${user.name || 'User'}</p>
+                </div>
             </div>
             <a href="profile.html" class="block w-full text-center py-2 rounded-lg border border-slate-200 text-slate-600 font-bold mb-2">Profil Saya</a>
             <button onclick="handleLogout()" class="block w-full py-2 rounded-lg bg-red-50 text-red-600 font-bold">Keluar</button>
@@ -186,9 +189,25 @@ function applyFilters() {
     if (!allData) return;
 
     const filtered = allData.filter(item => {
-      const matchName = item.nama_wisata.toLowerCase().includes(keyword);
-        const matchTags = (item.tags || "").toLowerCase().includes(keyword); 
-        const matchSearch = matchName || matchTags;
+        const matchName = item.nama_wisata.toLowerCase().includes(keyword);
+        const matchLokasi = (item.lokasi || "").toLowerCase().includes(keyword);
+        const matchDeskripsi = (item.deskripsi || "").toLowerCase().includes(keyword);
+        
+        // Handle tags - could be array or string
+        let matchTags = false;
+        if (item.tags) {
+            if (Array.isArray(item.tags)) {
+                matchTags = item.tags.some(tag => 
+                    (typeof tag === 'string' ? tag : tag.name || "")
+                        .toLowerCase()
+                        .includes(keyword)
+                );
+            } else if (typeof item.tags === 'string') {
+                matchTags = item.tags.toLowerCase().includes(keyword);
+            }
+        }
+        
+        const matchSearch = matchName || matchLokasi || matchDeskripsi || matchTags;
         const matchCat = (currentFilter === 'all') || (item.category_id == currentFilter);
 
         return matchSearch && matchCat;

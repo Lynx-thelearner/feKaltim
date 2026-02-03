@@ -35,7 +35,10 @@ function checkAuth() {
                 <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold">
                     ${(user.name || 'U').charAt(0)}
                 </div>
-                <span class="font-bold text-slate-700">${user.name || 'User'}</span>
+                <div class="flex-1">
+                    <p class="text-xs text-slate-500">Login sebagai</p>
+                    <p class="font-bold text-slate-800">${user.name || 'User'}</p>
+                </div>
             </div>
             <a href="profile.html" class="block w-full text-center py-2 rounded-lg border border-slate-200 text-slate-600 font-bold mb-2">Profil Saya</a>
             <button onclick="handleLogout()" class="block w-full py-2 rounded-lg bg-red-50 text-red-600 font-bold">Keluar</button>
@@ -99,7 +102,12 @@ async function loadPopularWisata() {
             let img = item.image_cover || 'https://via.placeholder.com/600x400';
             if (img.startsWith("static/")) img = `${API_URL}/${img}`;
 
-            const price = new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(item.ticket_price);
+            const price = new Intl.NumberFormat("id-ID", {
+                style: "currency", 
+                currency: "IDR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(item.ticket_price);
             // Cari Nama Kategori
             const cat = categories.find(c => (c.id || c.id_category) == item.category_id);
             const catName = cat ? cat.name : "Wisata";
