@@ -138,7 +138,9 @@ document.getElementById("create-form").addEventListener("submit", async (e) => {
         });
 
         if (res.ok) {
-            alert("Wisata berhasil ditambahkan!");
+            // Simpan flash message dan redirect ke index
+            const flash = { message: "Wisata berhasil ditambahkan!", type: "success" };
+            localStorage.setItem("admin_feedback", JSON.stringify(flash));
             window.location.href = "index.html";
         } else {
             const err = await res.json();

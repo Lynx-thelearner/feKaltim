@@ -79,8 +79,10 @@ form.addEventListener("submit", async (e) => {
             throw new Error(errData.message || errData.detail || "Gagal upload gambar.");
         }
 
-        // Sukses
-        showFeedback("Gambar berhasil diupload!", "success");
+        // Sukses: simpan flash message lalu redirect ke index
+        const flash = { message: "Gambar berhasil diupload!", type: "success" };
+        localStorage.setItem("admin_feedback", JSON.stringify(flash));
+        showFeedback(flash.message, flash.type);
         setTimeout(() => {
             window.location.href = "index.html";
         }, 1500);

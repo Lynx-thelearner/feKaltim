@@ -60,8 +60,8 @@ function renderTable(categories) {
 
   let rows = "";
   categories.forEach((category, index) => {
+    
     // Pastikan ID sesuai database (id_category atau id)
-    // Coba log object category di console jika ragu: console.log(category)
     const id = category.id_category || category.id; 
 
     rows += `
@@ -106,7 +106,7 @@ async function deleteCategory(id, name) {
     if (!confirm(`Hapus kategori "${name}"?`)) return;
 
     try {
-        const res = await fetch(`${API_URL}/category/${id}`, { // Endpoint Delete biasanya /category/{id} tanpa slash akhir
+        const res = await fetch(`${API_URL}/category/${id}`, { // Endpoint Delete biasanya /
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -117,7 +117,7 @@ async function deleteCategory(id, name) {
         if (!res.ok) throw new Error("Gagal menghapus.");
 
         alert("Berhasil dihapus!");
-        fetchCategories(); // Refresh
+        fetchCategories(); 
 
     } catch (error) {
         console.error("Delete Error:", error);

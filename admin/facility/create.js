@@ -70,7 +70,11 @@ form.addEventListener("submit", async (e) => {
       // SUKSES
       feedback.textContent = "Fasilitas berhasil dibuat!";
       feedback.className = "success";
-      
+      // Simpan flash message sebelum redirect
+      try {
+        const flash = { message: "Fasilitas berhasil dibuat!", type: "success" };
+        localStorage.setItem("admin_feedback", JSON.stringify(flash));
+      } catch (e) { console.warn("Could not store flash message", e); }
       setTimeout(() => {
         window.location.href = "/admin/facility/index.html";
       }, 1200);

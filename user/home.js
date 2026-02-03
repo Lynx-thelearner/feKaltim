@@ -43,56 +43,68 @@ function checkAuth() {
     } else {
         navAuth.innerHTML = `
             <a href="../logres/login.html" class="text-slate-500 font-bold hover:text-cyan-600 transition text-sm">Masuk</a>
-            <a href="catalog.html" class="px-5 py-2.5 bg-cyan-600 text-white rounded-full text-sm font-bold hover:bg-cyan-700 transition shadow-lg shadow-cyan-500/30">
+            <a href="destinasi.html" class="px-5 py-2.5 bg-cyan-600 text-white rounded-full text-sm font-bold hover:bg-cyan-700 transition shadow-lg shadow-cyan-500/30">
                 Jelajah
             </a>
         `;
         mobileAuth.innerHTML = `
             <a href="../logres/login.html" class="block w-full py-3 rounded-xl bg-slate-100 text-slate-700 font-bold text-center mb-2 hover:bg-slate-200">Masuk Akun</a>
-            <a href="catalog.html" class="block w-full py-3 rounded-xl bg-cyan-600 text-white font-bold text-center shadow-lg shadow-cyan-500/30">Jelajah Sekarang</a>
+            <a href="destinasi.html" class="block w-full py-3 rounded-xl bg-cyan-600 text-white font-bold text-center shadow-lg shadow-cyan-500/30">Jelajah Sekarang</a>
         `;
     }
     if(window.lucide) lucide.createIcons();
 }
 
-// 3. LOAD POPULAR WISATA (UPDATE: Menampilkan Tags)
+// 3. LOAD POPULAR WISATA (PERBAIKAN UTAMA DI SINI)
 async function loadPopularWisata() {
     try {
-        // Fetch Wisata & Kategori
+        popularGrid.innerHTML = `
+            <div class="h-[400px] bg-slate-200 rounded-3xl animate-pulse"></div>
+            <div class="h-[400px] bg-slate-200 rounded-3xl animate-pulse"></div>
+        `;
+
+        // Fetch Data Wisata & Kategori
         const [resWisata, resCat] = await Promise.all([
             fetch(`${API_URL}/wisata/published`, { headers: {"ngrok-skip-browser-warning": "true"} }),
             fetch(`${API_URL}/category/`, { headers: {"ngrok-skip-browser-warning": "true"} })
         ]);
         
-        if (!resWisata.ok) throw new Error("Gagal load data");
+        if (!resWisata.ok) throw new Error(`Gagal load data: ${resWisata.status}`);
 
         const result = await resWisata.json();
         const catResult = await resCat.json();
 
+        // Normalisasi Data
         const data = Array.isArray(result) ? result : (result.data || []);
         const categories = Array.isArray(catResult) ? catResult : (catResult.data || []);
 
-        // Filter Published & Ambil 2 Data Teratas
-        const published = data.filter(i => i.status === 'published').slice(0, 2);
+        // Filter Published
+        let published = data.filter(i => i.status === 'published');
 
+    
+
+        // Ambil 2 Data Teratas
+        published = published.slice(0, 2);
+
+        // Jika kosong
         if (published.length === 0) {
             popularGrid.innerHTML = `<p class="text-slate-500 col-span-full text-center">Belum ada data populer.</p>`;
             return;
         }
 
+        // RENDER HTML (Bagian yang sebelumnya hilang)
         popularGrid.innerHTML = published.map(item => {
-            // Fix Image URL
+            // Fix ID & Image
+            const id = item.id_wisata || item.id;
             let img = item.image_cover || 'https://via.placeholder.com/600x400';
             if (img.startsWith("static/")) img = `${API_URL}/${img}`;
 
             const price = new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(item.ticket_price);
-
-            // A. Nama Kategori
-            const cat = categories.find(c => c.id_category == item.category_id);
+            // Cari Nama Kategori
+            const cat = categories.find(c => (c.id || c.id_category) == item.category_id);
             const catName = cat ? cat.name : "Wisata";
 
-            // B. Generate HTML untuk Tags
-            // Pastikan item.tag berupa array
+            // Generate Tags
             const tagsList = Array.isArray(item.tag) ? item.tag : [];
             const tagsHtml = tagsList.map(tag => `
                 <span class="inline-block px-2 py-1 bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-bold rounded-full shadow-sm uppercase tracking-wide">
@@ -102,7 +114,7 @@ async function loadPopularWisata() {
 
             return `
                 <div class="group relative h-[400px] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500"
-                     onclick="location.href='detail_wisata.html?id=${item.id_wisata}'">
+                     onclick="location.href='detail_wisata.html?id=${id}'">
                     
                     <img src="${img}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     
@@ -119,8 +131,9 @@ async function loadPopularWisata() {
 
                         <h3 class="text-3xl font-serif font-bold text-white mb-2 leading-tight">${item.nama_wisata}</h3>
                         <p class="text-slate-300 text-sm mb-4 flex items-center gap-2">
-                            <i data-lucide="map-pin" width="16"></i> ${item.lokasi}
+                            <i data-lucide="map-pin" width="16"></i> ${item.lokasi || '-'}
                         </p>
+                        
                         <div class="flex justify-between items-center border-t border-white/20 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                             <span class="text-white font-bold text-lg">${price}</span>
                             <span class="w-10 h-10 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-cyan-400 hover:text-white transition">
@@ -135,8 +148,8 @@ async function loadPopularWisata() {
         if(window.lucide) lucide.createIcons();
 
     } catch (error) {
-        console.error(error);
-        popularGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Gagal memuat rekomendasi.</p>`;
+        console.error("Error Detail:", error); // Cek Console untuk lihat error asli
+        popularGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Gagal memuat wisata: ${error.message}</p>`;
     }
 }
 

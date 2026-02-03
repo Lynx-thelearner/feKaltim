@@ -60,9 +60,13 @@ userForm.addEventListener("submit", async (e) => {
             throw new Error(result.message || result.detail || "Gagal menambahkan user.");
         }
 
-        // Sukses
-        showFeedback("User berhasil ditambahkan! Mengalihkan...", "success");
-        
+        // Sukses: simpan flash message lalu redirect
+        const flash = { message: "User berhasil ditambahkan!", type: "success" };
+        try {
+            localStorage.setItem("admin_feedback", JSON.stringify(flash));
+        } catch (e) { console.warn("Could not store flash message", e); }
+        showFeedback(flash.message + " Mengalihkan...", "success");
+
         // Reset Form
         userForm.reset();
 

@@ -28,8 +28,6 @@ async function fetchCategoryData() {
         submitBtn.disabled = true;
         submitBtn.textContent = "Memuat data...";
 
-        // Debugging: Cek URL di console
-        console.log("Fetching URL:", `${API_URL}/category/${id_category}`);
 
         const res = await fetch(`${API_URL}/category/${id_category}`, {
             method: "GET",
@@ -46,7 +44,7 @@ async function fetchCategoryData() {
             const text = await res.text();
             
             if (status === 500) {
-                throw new Error("Server Backend Error (500). Minta teman backend cek terminalnya.");
+                throw new Error("Server Backend Error (500).");
             } else if (status === 404) {
                 throw new Error("Data kategori tidak ditemukan di database.");
             } else {
@@ -55,7 +53,7 @@ async function fetchCategoryData() {
         }
 
         const result = await res.json();
-        const data = result.data || result; // Handle format {data: ...} atau langsung object
+        const data = result.data || result; 
 
         if (!data || !data.name) {
             throw new Error("Struktur data dari backend tidak sesuai (nama kategori tidak ditemukan).");

@@ -1,15 +1,15 @@
 import API_URL from "../../config.js";
 
 // DOM Elements
-const grid = document.getElementById("catalog-grid");
+const grid = document.getElementById("destinasi-grid");
 const filtersContainer = document.getElementById("category-filters");
 const searchInput = document.getElementById("search-input");
 const emptyState = document.getElementById("empty-state");
 const navAuth = document.getElementById("nav-auth");
 const mobileAuth = document.getElementById("mobile-auth-links");
 
-// --- PERBAIKAN DI SINI: Deklarasi Variabel Global ---
-let allData = [];  // <--- WAJIB ADA
+
+let allData = [];  
 let categories = {}; 
 let currentFilter = 'all';
 
@@ -95,7 +95,6 @@ async function initData() {
         const result = await res.json();
         const rawData = Array.isArray(result) ? result : (result.data || []);
 
-        // --- PERBAIKAN: Pastikan variabel global diisi ---
         allData = rawData.filter(item => item.status === 'published');
         
         renderGrid(allData);
@@ -114,6 +113,15 @@ function renderGrid(items) {
         return;
     }
 
+    function formatRupiah(angka) {
+    if (!angka || angka == 0.00) return "Gratis";
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0 
+    }).format(angka);
+}
+
     grid.classList.remove("hidden");
     emptyState.classList.add("hidden");
 
@@ -124,7 +132,7 @@ function renderGrid(items) {
         let img = item.image_cover || 'https://via.placeholder.com/400';
         if (img.startsWith("static/")) img = `${API_URL}/${img}`;
 
-        const price = new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(item.ticket_price);
+        const price = formatRupiah(item.ticket_price);
 
         return `
             <div class="group bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-200 transition-all duration-300 cursor-pointer flex flex-col h-full"
@@ -174,13 +182,16 @@ searchInput.addEventListener("input", applyFilters);
 function applyFilters() {
     const keyword = searchInput.value.toLowerCase();
     
-    // Pastikan allData ada isinya sebelum di-filter
+
     if (!allData) return;
 
     const filtered = allData.filter(item => {
-        const matchName = item.nama_wisata.toLowerCase().includes(keyword);
+      const matchName = item.nama_wisata.toLowerCase().includes(keyword);
+        const matchTags = (item.tags || "").toLowerCase().includes(keyword); 
+        const matchSearch = matchName || matchTags;
         const matchCat = (currentFilter === 'all') || (item.category_id == currentFilter);
-        return matchName && matchCat;
+
+        return matchSearch && matchCat;
     });
 
     renderGrid(filtered);

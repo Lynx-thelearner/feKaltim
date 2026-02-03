@@ -24,10 +24,7 @@ async function init() {
 // 3. Fetch Data (Gabungan Wisata & Images)
 async function fetchAndProcessData() {
     try {
-        // Kita butuh 2 data sekaligus:
-        // 1. Data Wisata (untuk mengambil Nama Wisata dan mengisi Dropdown)
-        // 2. Data Images (untuk mengisi Tabel dan mendapatkan ID Image)
-        
+ 
         const headers = { 
             "Authorization": `Bearer ${token}`,
             "ngrok-skip-browser-warning": "true"
@@ -43,9 +40,7 @@ async function fetchAndProcessData() {
         const rawWisata = await resWisata.json();
         const rawImages = await resImages.json();
 
-        // Debugging (Bisa dilihat di Console)
-        console.log("Data Wisata:", rawWisata);
-        console.log("Data Images:", rawImages);
+    
 
         // --- A. PROSES DATA WISATA (Untuk Mapping Nama & Dropdown) ---
         const listWisata = Array.isArray(rawWisata) ? rawWisata : (rawWisata.data || []);
@@ -71,20 +66,18 @@ async function fetchAndProcessData() {
         });
 
         // --- B. PROSES DATA IMAGES (Langsung dari endpoint /images) ---
-        // Sesuai screenshot console log Anda, datanya langsung array object.
         const listImages = Array.isArray(rawImages) ? rawImages : (rawImages.data || []);
         
         allImages = []; // Reset
 
         listImages.forEach(imgData => {
-            // Ambil data langsung dari object (Sesuai screenshot console Anda)
-            // { id_image: 5, id_wisata: 13, image_url: "...", is_primary: true }
+   
             
             allImages.push({
                 id_wisata: imgData.id_wisata,
                 image_url: imgData.image_url,
                 is_primary: imgData.is_primary,
-                id_image: imgData.id_image // INI DIA YANG KITA CARI! (Angka 5, 6, 7, dst)
+                id_image: imgData.id_image 
             });
         });
 

@@ -88,7 +88,6 @@ function formatRupiah(angka) {
 // Helper: Format Waktu (08:00:00 -> 08:00)
 function formatTime(timeString) {
     if (!timeString) return "-";
-    // Jika formatnya HH:MM:SS.ms, ambil 5 karakter pertama saja
     return timeString.substring(0, 5); 
 }
 

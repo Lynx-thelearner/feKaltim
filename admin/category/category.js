@@ -11,7 +11,6 @@ if (!token) {
 
 
 const form = document.getElementById("category-form");
-// MENYESUAIKAN: Definisi variabel yang sebelumnya error
 const feedback = document.getElementById("feedback-message");
 const submitBtn = document.getElementById("submit-btn");
 
@@ -35,12 +34,11 @@ form.addEventListener("submit", async (e) => {
   submitBtn.textContent = "Loading...";
 
   try {
-    // MENYESUAIKAN: Endpoint diganti agar sesuai konteks (bukan user/register)
-    // Pastikan rute backendmu benar, biasanya /category atau /categories
     const res = await fetch(`${API_URL}/category`, { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
         name: name,
@@ -75,13 +73,16 @@ form.addEventListener("submit", async (e) => {
 
       feedback.textContent = message;
       feedback.className = "error";
-      // Jika error, jangan redirect, stop di sini.
-      // throw new Error(message); // Opsional jika ingin lompat ke catch
+    
     } else {
       // SUKSES
       feedback.textContent = "Kategori berhasil dibuat!";
       feedback.className = "success";
-      
+      // Simpan flash message sebelum redirect
+      try {
+        const flash = { message: "Kategori berhasil dibuat!", type: "success" };
+        localStorage.setItem("admin_feedback", JSON.stringify(flash));
+      } catch (e) { console.warn("Could not store flash message", e); }
       setTimeout(() => {
         window.location.href = "/admin/category/index.html";
       }, 1200);
@@ -92,9 +93,8 @@ form.addEventListener("submit", async (e) => {
     feedback.textContent = "Terjadi kesalahan jaringan atau server.";
     feedback.className = "error";
   } finally {
-    // MENYESUAIKAN: Kembalikan tombol seperti semula setelah proses selesai
+
     if (!feedback.classList.contains("success")) {
-        // Hanya enable tombol lagi jika belum sukses (kalau sukses kan mau redirect)
         submitBtn.disabled = false;
         submitBtn.textContent = "Create Category";
     }

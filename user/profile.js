@@ -26,24 +26,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. Load Data User dari LocalStorage
     const userStr = localStorage.getItem("user");
+    
     if (userStr) {
-        currentUser = JSON.parse(userStr);
-        renderProfile(currentUser);
+        try {
+            // Parsing JSON
+            const parsedUser = JSON.parse(userStr);
+            console.log("Data User dari LocalStorage:", parsedUser); // DEBUG
+
+            // Normalisasi Data: Handle jika data terbungkus dalam properti 'data'
+            // Contoh: { data: { name: "..." } } vs { name: "..." }
+            currentUser = parsedUser.data || parsedUser; 
+
+            renderProfile(currentUser);
+        } catch (e) {
+            console.error("Gagal parsing data user:", e);
+        }
+    } else {
+        // Opsional: Jika tidak ada di storage, fetch ulang dari API /user/profile atau /me
+        // fetchUserData(); 
     }
 
     // Fungsi Render UI
     function renderProfile(user) {
-        if(profileName) profileName.textContent = user.name || "User";
+        if (!user) return;
+
+        // Tampilkan di Header Profil
+        if(profileName) profileName.textContent = user.name || "User Tanpa Nama";
         if(profileEmail) profileEmail.textContent = user.email || "-";
-        if(navUsername) navUsername.textContent = user.name || "User";
-        
-        // Avatar Initials
         if(profileAvatar) {
             const initial = (user.name || "U").charAt(0).toUpperCase();
             profileAvatar.textContent = initial;
         }
+        
+        // Tampilkan di Navbar
+        if(navUsername) navUsername.textContent = user.name || "User";
 
-        // Form Inputs
+        // Tampilkan di Form Input (PENTING AGAR MUNCUL)
         if(inputName) inputName.value = user.name || "";
         if(inputUsername) inputUsername.value = user.username || "";
         if(inputEmail) inputEmail.value = user.email || "";
@@ -54,18 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
         profileForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // Pastikan elemen input ada sebelum ambil value
             if (!inputName || !inputUsername || !inputEmail) return;
 
-            // --- PERBAIKAN PAYLOAD ---
-            // Hanya kirim field yang diizinkan backend (name, username, email)
             const payload = {
                 name: inputName.value,
                 username: inputUsername.value,
                 email: inputEmail.value
             };
 
-            // Hanya kirim password jika diisi
             if (inputPassword && inputPassword.value.trim() !== "") {
                 payload.password = inputPassword.value;
             }
@@ -89,8 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!res.ok) {
                     const err = await res.json();
                     let errMsg = err.message || "Gagal mengupdate profil";
-                    
-                    // Handle Error Validasi FastAPI (422)
                     if (err.detail && Array.isArray(err.detail)) {
                         errMsg = `${err.detail[0].loc[1]}: ${err.detail[0].msg}`;
                     }
@@ -99,16 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const updatedData = await res.json();
                 
-                // Update LocalStorage
+                // Update LocalStorage dengan data baru
                 const newUser = updatedData.data || updatedData;
-                const storageData = {
-                    ...currentUser, 
-                    ...newUser      
-                };
+                const storageData = { ...currentUser, ...newUser };
                 
                 localStorage.setItem("user", JSON.stringify(storageData));
                 
-                // Update UI
                 renderProfile(storageData);
                 if(inputPassword) inputPassword.value = ""; 
                 alert("Profil berhasil diperbarui!");
@@ -125,11 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Init Icons
     if(window.lucide) lucide.createIcons();
 });
 
-// 5. Global Logout Logic
 window.handleLogout = () => {
     if(confirm("Yakin ingin logout?")) {
         localStorage.removeItem("token");

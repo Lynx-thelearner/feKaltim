@@ -3,6 +3,19 @@ import API_URL from "../../config.js";
 const loadingState = document.getElementById("loading-state");
 const mainContent = document.getElementById("main-content");
 
+// --- 1. Tambahkan Helper Function di sini ---
+function formatRupiah(angka) {
+    // Cek null, undefined, 0 (number), atau "0" (string)
+    if (!angka || angka == 0) return "Gratis";
+    
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0 // Agar tidak muncul ,00
+    }).format(angka);
+}
+// ---------------------------------------------
+
 document.addEventListener("DOMContentLoaded", () => {
     loadDetail();
 });
@@ -56,9 +69,9 @@ function renderUI(item, categories) {
     const catObj = categories.find(c => (c.id || c.id_category) == item.category_id);
     document.getElementById("hero-category").textContent = catObj ? catObj.name : "WISATA";
 
-    // 4. Tags Wisata (New Feature)
+    // 4. Tags Wisata
     const tagsContainer = document.getElementById("hero-tags");
-    const tagsList = item.tag || []; // Asumsi properti dari API bernama 'tag' (array of strings)
+    const tagsList = item.tag || []; 
     
     if (tagsList.length > 0) {
         tagsContainer.innerHTML = tagsList.map(tag => `
@@ -67,12 +80,13 @@ function renderUI(item, categories) {
             </span>
         `).join("");
     } else {
-        tagsContainer.innerHTML = ''; // Kosongkan jika tidak ada tag
+        tagsContainer.innerHTML = ''; 
     }
 
-    // 5. Info Sidebar (Harga, Jam)
-    const price = new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(item.ticket_price);
+    // --- 5. Harga
+    const price = formatRupiah(item.ticket_price);
     document.getElementById("info-price").textContent = price;
+
 
     const open = item.open_time ? String(item.open_time).substring(0, 5) : "00:00";
     const close = item.close_time ? String(item.close_time).substring(0, 5) : "00:00";
@@ -119,8 +133,7 @@ function renderUI(item, categories) {
         document.getElementById("no-gallery-msg").classList.remove("hidden");
     }
 
-
     loadingState.classList.add("hidden");
     mainContent.classList.remove("hidden");
-    lucide.createIcons();
+    if(window.lucide) lucide.createIcons();
 }
