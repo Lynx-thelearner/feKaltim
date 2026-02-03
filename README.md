@@ -29,8 +29,9 @@ Aplikasi web front-end untuk manajemen dan promosi wisata Kalimantan Timur. Apli
 
 ### User Panel
 - **Halaman Beranda** - Daftar wisata dan rekomendasi
+- **Halaman Destinasi** - Jelajahi semua destinasi wisata
 - **Detail Wisata** - Informasi lengkap wisata
-- **Fasilitas Wisata** - Daftar fasilitas yang tersedia
+- **Profil User** - Kelola profil pengguna
 
 
 ##  Struktur Proyek
@@ -81,7 +82,14 @@ feKaltim/
 │   
 │       
 ├── user/                          # Panel User
-│   └── home.html                 # Halaman beranda
+│   ├── home.html                 # Halaman beranda
+│   ├── home.js                   # Logic beranda
+│   ├── destinasi.html            # Halaman destinasi wisata
+│   ├── destinasi.js              # Logic destinasi
+│   ├── detail_wisata.html        # Detail wisata
+│   ├── detail_wisata.js          # Logic detail wisata
+│   ├── profile.html              # Profil user
+│   └── profile.js                # Logic profil
 ├── auth/                          # Modul autentikasi
 │   └── auth.js                   # Fungsi helper autentikasi
 ├── logres/                        # Halaman login & register
@@ -94,7 +102,6 @@ feKaltim/
 │   ├── CategoryController.js      # Controller kategori
 │   └── Controller.js              # General controller
 ├── config.js                      # Konfigurasi API
-├── dashboard.html                 # Home page publik
 ├── login.html                     # Login page publik
 └── README.md                      # File ini
 ```
@@ -176,10 +183,16 @@ export default API_URL;
 3. Klik tombol Login
 4. Akan diarahkan ke Halaman Beranda
 
-#### Melihat Wisata
-1. Di halaman beranda, lihat daftar wisata
-2. Klik wisata untuk melihat detail
-3. Lihat informasi, fasilitas
+#### Melihat Destinasi
+1. Dari halaman beranda, klik "Jelajah Sekarang" atau menu "Destinasi"
+2. Lihat daftar lengkap destinasi wisata
+3. Klik destinasi untuk melihat detail lengkap
+4. Lihat informasi lengkap, galeri gambar, dan fasilitas yang tersedia
+
+#### Melihat Profil
+1. Klik menu "Profil" di navigasi
+2. Lihat informasi profil user
+3. Edit data profil jika diperlukan
 
 
 
@@ -225,14 +238,28 @@ DELETE /category/{id_kategori}       # Hapus kategori
 ##  Fitur User
 
 ### 1. Halaman Beranda
-- Daftar wisata terbaru
-- Pencarian wisata
-- Filter berdasarkan kategori
+- Daftar wisata terbaru dan rekomendasi
+- CTA untuk menjelajahi destinasi
+- Navigasi ke halaman destinasi
 
-### 2. Detail Wisata
-- Informasi wisata
-- Galeri gambar
+### 2. Halaman Destinasi
+- Daftar lengkap semua destinasi wisata
+- Search dan filter wisata
+- Grid view destinasi yang menarik
+- Link ke detail wisata
+
+### 3. Detail Wisata
+- Informasi lengkap wisata
+- Galeri gambar wisata
 - Fasilitas yang tersedia
+- Jam operasional
+- Harga tiket
+- Tags/label wisata
+
+### 4. Profil User
+- Informasi data user
+- Edit profil
+- Logout
 
 
 
@@ -328,5 +355,5 @@ isLoggedIn()      // Cek apakah user sudah login
 
 
 
-**Last Updated**: February 1, 2026  
-**Version**: 1.0.0
+**Last Updated**: February 3, 2026  
+**Version**: 1.1.0
