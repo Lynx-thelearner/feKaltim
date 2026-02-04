@@ -1,4 +1,5 @@
 import API_URL from "../../config.js";
+import { fetchUserProfile } from "../auth/auth.js";
 
 // DOM Elements
 const navAuth = document.getElementById("nav-auth");
@@ -14,14 +15,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 2. CHECK AUTH
-function checkAuth() {
+async function checkAuth() {
     const token = localStorage.getItem("token");
-    const userStr = localStorage.getItem("user");
-    const user = userStr ? JSON.parse(userStr) : {};
-
+    let user = {};
+    
     if (token) {
+        // Fetch user profile dari API
+        const profileData = await fetchUserProfile(API_URL);
+        if (profileData && profileData.name) {
+            user = profileData;
+        } else {
+            // Fallback ke localStorage jika API gagal
+            const userStr = localStorage.getItem("user");
+            if (userStr && userStr !== "null") {
+                try {
+                    user = JSON.parse(userStr);
+                } catch (e) {
+                    console.error("Gagal parse user:", e);
+                    user = {};
+                }
+            }
+        }
+    }
+    
+    if (token) {
+        const displayName = user.name || user.full_name || user.username || 'User';
         navAuth.innerHTML = `
-            <span class="text-sm font-bold text-slate-700 hidden lg:block">Halo, ${user.name || 'User'}</span>
+            <span class="text-sm font-bold text-slate-700 hidden lg:block">Halo, ${displayName}</span>
             <a href="profile.html" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-cyan-100 hover:text-cyan-600 transition" title="Profil">
                 <i data-lucide="user" width="20"></i>
             </a>
@@ -33,11 +53,11 @@ function checkAuth() {
         mobileAuth.innerHTML = `
             <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg mb-2">
                 <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold">
-                    ${(user.name || 'U').charAt(0)}
+                    ${(displayName || 'U').charAt(0)}
                 </div>
                 <div class="flex-1">
                     <p class="text-xs text-slate-500">Login sebagai</p>
-                    <p class="font-bold text-slate-800">${user.name || 'User'}</p>
+                    <p class="font-bold text-slate-800">${displayName}</p>
                 </div>
             </div>
             <a href="profile.html" class="block w-full text-center py-2 rounded-lg border border-slate-200 text-slate-600 font-bold mb-2">Profil Saya</a>
@@ -156,7 +176,7 @@ async function loadPopularWisata() {
         if(window.lucide) lucide.createIcons();
 
     } catch (error) {
-        console.error("Error Detail:", error); // Cek Console untuk lihat error asli
+        console.error("Error Detail:", error); 
         popularGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Gagal memuat wisata: ${error.message}</p>`;
     }
 }

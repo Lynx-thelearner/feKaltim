@@ -1,5 +1,5 @@
 import API_URL from "../config.js";
-import { getRole } from "../auth/auth.js";
+import { getRole, parseJwt } from "../auth/auth.js";
 
 const username = document.getElementById("username");
 const password = document.getElementById("password");
@@ -68,12 +68,41 @@ loginBtn.addEventListener("click", async (e) => {
     }
 
     const data = await response.json();
+    
     localStorage.setItem("token", data.access_token);
     
-    // Simpan data user ke localStorage agar bisa diakses di halaman lain
+    // Utama: Ambil data user dari JWT token
+    const decoded = parseJwt(data.access_token);
+    
+    let userData = null;
+    
+    // Priority 1: Gunakan data dari response API jika ada
     if (data.user) {
-      localStorage.setItem("user", JSON.stringify(data.user));
+      userData = data.user;
     }
+    // Priority 2: Extract dari JWT token
+    else if (decoded) {
+      userData = {
+        id: decoded.sub || decoded.user_id || decoded.id || 1,
+        name: decoded.name || decoded.username || "User",
+        email: decoded.email || "",
+        username: decoded.username || username.value,
+        role: decoded.role || "user"
+      };
+    }
+    // Priority 3: Buat default user object
+    else {
+      userData = {
+        id: 1,
+        name: username.value || "User",
+        email: "",
+        username: username.value || "user",
+        role: "user"
+      };
+    }
+    
+    // Simpan ke localStorage
+    localStorage.setItem("user", JSON.stringify(userData));
     
     // Ambil data user/role
     const role = getRole();

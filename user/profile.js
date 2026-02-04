@@ -1,4 +1,5 @@
 import API_URL from "../../config.js";
+import { getUserData } from "../../auth/auth.js";
 
 let currentUser = {};
 
@@ -24,28 +25,26 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // 3. Load Data User dari LocalStorage
-    const userStr = localStorage.getItem("user");
+    // 3. Load Data User menggunakan getUserData dari auth.js
+    const userData = getUserData();
     
-    if (userStr) {
-        try {
-            // Parsing JSON
-            const parsedUser = JSON.parse(userStr);
-            console.log("Data User dari LocalStorage:", parsedUser); // DEBUG
-
-            // Normalisasi Data: Handle jika data terbungkus dalam properti 'data'
-            // Contoh: { data: { name: "..." } } vs { name: "..." }
-            currentUser = parsedUser.data || parsedUser; 
-
-            renderProfile(currentUser);
-        } catch (e) {
-            console.error("Gagal parsing data user:", e);
-        }
+    if (userData) {
+        currentUser = userData;
+        renderProfile(currentUser);
     } else {
-        // Opsional: Jika tidak ada di storage, fetch ulang dari API /user/profile atau /me
-        // fetchUserData(); 
+        console.warn("Gagal mendapatkan data user");
+        // Fallback: coba ambil dari localStorage langsung
+        const userStr = localStorage.getItem("user");
+        if (userStr && userStr !== "null") {
+            try {
+                const parsedUser = JSON.parse(userStr);
+                currentUser = parsedUser.data || parsedUser;
+                renderProfile(currentUser);
+            } catch (e) {
+                console.error("Gagal parsing data user:", e);
+            }
+        }
     }
-
     // Fungsi Render UI
     function renderProfile(user) {
         if (!user) return;

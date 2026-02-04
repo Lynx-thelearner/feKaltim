@@ -38,7 +38,6 @@ async function fetchCategoryData() {
             }
         });
 
-        // Tangkap Error 500 / 404 dari Server
         if (!res.ok) {
             const status = res.status;
             const text = await res.text();
@@ -97,7 +96,7 @@ form.addEventListener("submit", async (e) => {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`, // Jangan lupa token di sini juga
+                "Authorization": `Bearer ${token}`, 
                 "ngrok-skip-browser-warning": "true"
             },
             body: JSON.stringify({ name: name }),

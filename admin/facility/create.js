@@ -25,8 +25,6 @@ form.addEventListener("submit", async (e) => {
   submitBtn.textContent = "Loading...";
 
   try {
-    // MENYESUAIKAN: Endpoint diganti agar sesuai konteks (bukan user/register)
-    // Pastikan rute backendmu benar, biasanya /category atau /categories
     const res = await fetch(`${API_URL}/facility`, { 
       method: "POST",
       headers: {
@@ -67,10 +65,8 @@ form.addEventListener("submit", async (e) => {
       feedback.className = "error";
 
     } else {
-      // SUKSES
       feedback.textContent = "Fasilitas berhasil dibuat!";
       feedback.className = "success";
-      // Simpan flash message sebelum redirect
       try {
         const flash = { message: "Fasilitas berhasil dibuat!", type: "success" };
         localStorage.setItem("admin_feedback", JSON.stringify(flash));
@@ -85,9 +81,7 @@ form.addEventListener("submit", async (e) => {
     feedback.textContent = "Terjadi kesalahan jaringan atau server.";
     feedback.className = "error";
   } finally {
-    // MENYESUAIKAN: Kembalikan tombol seperti semula setelah proses selesai
     if (!feedback.classList.contains("success")) {
-        // Hanya enable tombol lagi jika belum sukses (kalau sukses kan mau redirect)
         submitBtn.disabled = false;
         submitBtn.textContent = "Create Facility";
     }
