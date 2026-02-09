@@ -16,7 +16,7 @@ const setLoadingState = (isLoading) => {
     btnText.textContent = "Memproses...";
     btnIcon.style.display = "none";
     btnLoading.style.display = "block";
-    errorMsg.style.display = "none"; // Sembunyikan error lama
+    errorMsg.style.display = "none"; 
   } else {
     loginBtn.disabled = false;
     btnText.textContent = "Masuk";
@@ -54,8 +54,8 @@ loginBtn.addEventListener("click", async (e) => {
     form.set("password", password.value.trim());
 
     const response = await fetch(`${API_URL}/auth/login`, {
-        headers: { 
-        "ngrok-skip-browser-warning": "true" },
+      headers: { 
+      "ngrok-skip-browser-warning": "true" },
       method: "POST",
       body: form,
     });

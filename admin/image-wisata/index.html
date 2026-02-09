@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeri & Cover - Admin Nature Kaltim</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -18,64 +19,59 @@
         
         <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
             <div class="p-6 text-center border-b border-slate-700">
-                <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
+                <div class="flex items-center justify-center mb-3">
+                    <div class="w-12 h-12 bg-cyan-600 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                        <i data-lucide="compass" width="24" class="text-white"></i>
+                    </div>
+                </div>
+                <h2 class="text-2xl font-bold text-cyan-400">Nature Admin</h2>
                 <p class="text-xs text-gray-400 mt-1">Pengelola Wisata Kaltim</p>
             </div>
 
             <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-                <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
-                    <span class="mr-3">🏠</span> Dashboard
+                <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i data-lucide="home" width="18" class="mr-3"></i> Dashboard
                 </a>
-                <a href="../wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
-                    <span class="mr-3">🌲</span> Data Wisata
+                <a href="../wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i data-lucide="trees" width="18" class="mr-3"></i> Data Wisata
                 </a>
-                <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
-                    <span class="mr-3">📂</span> Kategori
+                <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i data-lucide="folder" width="18" class="mr-3"></i> Kategori
                 </a>
-                <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
-                    <span class="mr-3">🏷️</span> Tags
+                <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i data-lucide="tag" width="18" class="mr-3"></i> Tags
                 </a>
-                <a href="../facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
-                    <span class="mr-3">🛠️</span> Fasilitas
+                <a href="../facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i data-lucide="wrench" width="18" class="mr-3"></i> Fasilitas
                 </a>
-                
-                <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
-                    <span class="mr-3">🖼️</span> Gambar
+                <a href="index.html" class="flex items-center px-4 py-3 bg-cyan-600 text-white rounded-lg shadow-md">
+                    <i data-lucide="image" width="18" class="mr-3"></i> Gambar
                 </a>
-                <a href="../user/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors text-gray-300 hover:text-white">
-                    <span class="mr-3">👤</span> Users
+                <a href="../user/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i data-lucide="users" width="18" class="mr-3"></i> Users
                 </a>
             </nav>
 
             <div class="p-4 border-t border-slate-700">
                 <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
-                    <span class="mr-2">🚪</span> Logout
+                    <i data-lucide="log-out" width="18" class="mr-2"></i> Logout
                 </button>
             </div>
         </aside>
 
         <main class="flex-1 flex flex-col h-screen overflow-hidden">
             
-           <header
-          class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10"
-        >
-          <h1 class="text-xl font-semibold text-gray-800">
-           Administrator
-          </h1>
-          <div class="flex items-center gap-3">
-            <div class="text-right">
-              <div class="text-sm font-medium text-gray-800" id="admin-name">
-                Admin
+           <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+              <h1 class="text-xl font-semibold text-gray-800">Manajemen Gambar Wisata</h1>
+              <div class="flex items-center gap-3">
+                <div class="text-right">
+                  <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
+                  <div class="text-xs text-gray-500">Administrator</div>
+                </div>
+                <div class="h-10 w-10 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600 font-bold border border-cyan-200">A</div>
               </div>
-              <div class="text-xs text-gray-500">Administrator</div>
-            </div>
-            <div
-              class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold border border-green-200"
-            >
-              A
-            </div>
-          </div>
-        </header>
+            </header>
+
             <div class="flex-1 overflow-y-auto p-8">
                 <div id="flash-feedback" class="max-w-4xl mx-auto mb-4"></div>
                 
@@ -84,22 +80,22 @@
                         <h2 class="text-2xl font-bold text-gray-700">Daftar Gambar Wisata</h2>
                         <p class="text-sm text-gray-500 mt-1">Atur gambar cover utama (thumbnail) untuk setiap wisata.</p>
                     </div>
-                    <a href="create.html" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center">
-                        <span class="text-lg mr-2">+</span> Upload Gambar
+                    <a href="create.html" class="bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2 px-4 rounded-lg shadow-lg shadow-cyan-500/30 transition duration-200 flex items-center transform hover:-translate-y-0.5">
+                        <i data-lucide="upload" width="18" class="mr-2"></i> Upload Gambar
                     </a>
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-4 mb-6">
                     <div class="w-full md:w-1/3">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Wisata</label>
-                        <select id="filter-wisata" onchange="applyFilters()" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <select id="filter-wisata" onchange="applyFilters()" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                             <option value="all">Semua Wisata</option>
-                            </select>
+                        </select>
                     </div>
 
                     <div class="w-full md:w-1/3">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Tipe Gambar</label>
-                        <select id="filter-type" onchange="applyFilters()" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <select id="filter-type" onchange="applyFilters()" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                             <option value="all">Semua Tipe</option>
                             <option value="cover">✅ Cover Utama</option>
                             <option value="gallery">🖼️ Galeri</option>
@@ -111,7 +107,6 @@
                     <table class="w-full text-left border-collapse">
                         <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-bold tracking-wider">
                             <tr>
-                                
                                 <th class="px-6 py-4 border-b">No</th>
                                 <th class="px-6 py-4 border-b">ID Wisata</th> 
                                 <th class="px-6 py-4 border-b">Wisata</th>
@@ -124,7 +119,7 @@
                             <tr>
                                 <td colspan="6" class="p-8 text-center text-gray-400">
                                     <div class="flex flex-col items-center justify-center">
-                                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mb-2"></div>
+                                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-600 mb-2"></div>
                                         Memuat data gambar...
                                     </div>
                                 </td>
@@ -140,7 +135,6 @@
 
     <script type="module" src="index.js"></script>
     <script>
-        // Tampilkan flash message jika ada, lalu hapus
         (function(){
             try {
                 const raw = localStorage.getItem('admin_feedback');
@@ -155,15 +149,14 @@
                 localStorage.removeItem('admin_feedback');
             } catch (e) { console.warn('Flash feedback parse error', e); }
         })();
-    </script>
-    <script>
-        // Fallback jika logout.js tidak ada
+
         function handleLogout() {
             if (confirm("Yakin ingin keluar?")) {
                 localStorage.removeItem("token");
                 window.location.href = "../../logres/login.html";
             }
         }
+        window.addEventListener('load', () => { if(window.lucide) lucide.createIcons(); });
     </script>
 </body>
 </html>

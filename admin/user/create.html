@@ -1,171 +1,159 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tambah User - Admin Nature Kaltim</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #555; }
     </style>
-</head>
-<body class="bg-gray-100 font-sans antialiased">
-
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
     <div class="flex h-screen overflow-hidden">
-        
-        <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
-            <div class="p-6 text-center border-b border-slate-700">
-                <h2 class="text-2xl font-bold text-green-400">Nature Admin</h2>
-                <p class="text-xs text-gray-400 mt-1">Pengelola Wisata Kaltim</p>
+      
+      <aside class="w-64 bg-slate-800 text-white flex flex-col shadow-lg">
+        <div class="p-6 text-center border-b border-slate-700">
+          <div class="flex items-center justify-center mb-3">
+            <div class="w-12 h-12 bg-cyan-600 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30">
+              <i data-lucide="compass" width="24" class="text-white"></i>
             </div>
+          </div>
+          <h2 class="text-2xl font-bold text-cyan-400">Nature Admin</h2>
+          <p class="text-xs text-gray-400 mt-1">Pengelola Wisata Kaltim</p>
+        </div>
 
-            <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-                <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
-                    <span class="mr-3">🏠</span> Dashboard
-                </a>
-                
-                <a href="../wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
-                    <span class="mr-3">🌲</span> Data Wisata
-                </a>
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+          <a href="../dashboard.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <i data-lucide="home" width="18" class="mr-3"></i> Dashboard
+          </a>
+          <a href="../wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <i data-lucide="trees" width="18" class="mr-3"></i> Data Wisata
+          </a>
+          <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <i data-lucide="folder" width="18" class="mr-3"></i> Kategori
+          </a>
+          <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <i data-lucide="tag" width="18" class="mr-3"></i> Tags
+          </a>
+          <a href="../facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <i data-lucide="wrench" width="18" class="mr-3"></i> Fasilitas
+          </a>
+          <a href="../image-wisata/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
+            <i data-lucide="image" width="18" class="mr-3"></i> Gambar
+          </a>
+          <a href="index.html" class="flex items-center px-4 py-3 bg-cyan-600 text-white rounded-lg shadow-md">
+            <i data-lucide="users" width="18" class="mr-3"></i> User
+          </a>
+        </nav>
 
-                <a href="../category/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
-                    <span class="mr-3">📂</span> Kategori
-                </a>
+        <div class="p-4 border-t border-slate-700">
+          <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+            <i data-lucide="log-out" width="18" class="mr-2"></i> Logout
+          </button>
+        </div>
+      </aside>
 
-                <a href="../tags/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
-                    <span class="mr-3">🏷️</span> Tags
-                </a>
-                
-                <a href="../facility/index.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-700 transition-colors">
-                    <span class="mr-3">🛠️</span> Fasilitas
-                </a>
-
-                <a href="index.html" class="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg shadow-md">
-                    <span class="mr-3">👤</span> Users
-                </a>
-            </nav>
-
-            <div class="p-4 border-t border-slate-700">
-                <button onclick="handleLogout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
-                    <span class="mr-2">🚪</span> Logout
-                </button>
+      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+          <h1 class="text-xl font-semibold text-gray-800">Tambah User Baru</h1>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-sm font-medium text-gray-800" id="admin-name">Admin</div>
+              <div class="text-xs text-gray-500">Administrator</div>
             </div>
-        </aside>
+            <div class="h-10 w-10 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600 font-bold border border-cyan-200">A</div>
+          </div>
+        </header>
 
-        <main class="flex-1 flex flex-col h-screen overflow-hidden">
-            
-            <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
-                <h1 class="text-xl font-semibold text-gray-800">Tambah User Baru</h1>
-                <div class="text-sm text-gray-500">Halo, Admin</div>
-            </header>
+        <div class="flex-1 overflow-y-auto p-8">
+          <nav class="text-sm text-gray-500 mb-6">
+            <ol class="list-reset flex">
+              <li><a href="index.html" class="text-cyan-600 hover:text-cyan-800">Users</a></li>
+              <li><span class="mx-2">/</span></li>
+              <li class="text-gray-700">Tambah Data</li>
+            </ol>
+          </nav>
 
-            <div class="flex-1 overflow-y-auto p-8">
+          <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+            <div class="p-8">
+              <div class="flex items-center mb-6">
+                <div class="p-2 bg-cyan-100 text-cyan-600 rounded-lg mr-3">
+                   <i data-lucide="user-plus" width="24"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-700">Form Data User</h2>
+              </div>
+
+              <form id="user-form" class="space-y-6">
                 
-                <nav class="text-sm text-gray-500 mb-6">
-                    <ol class="list-reset flex">
-                        <li><a href="index.html" class="text-blue-600 hover:text-blue-800">Users</a></li>
-                        <li><span class="mx-2">/</span></li>
-                        <li class="text-gray-700">Tambah Data</li>
-                    </ol>
-                </nav>
-
-                <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-                    <div class="p-8">
-                        <div class="flex items-center mb-6">
-                            <span class="bg-blue-100 text-blue-600 p-2 rounded-lg mr-3">
-                                👤
-                            </span>
-                            <h2 class="text-2xl font-bold text-gray-700">Form Data User</h2>
-                        </div>
-
-                        <form id="user-form" class="space-y-6">
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Nama Lengkap
-                                    </label>
-                                    <input type="text" id="name" name="name" 
-                                           placeholder="Contoh: Asep Sunandar" 
-                                           required
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200">
-                                </div>
-
-                                <div>
-                                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Username
-                                    </label>
-                                    <input type="text" id="username" name="username" 
-                                           placeholder="Contoh: asep123" 
-                                           required
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Email Address
-                                </label>
-                                <input type="email" id="email" name="email" 
-                                       placeholder="Contoh: asep@naturekaltim.com" 
-                                       required
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200">
-                            </div>
-
-                            <div>
-                                <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Role / Peran
-                                </label>
-                                <select id="role" name="role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200 bg-white">
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Password
-                                </label>
-                                <input type="password" id="password" name="password" 
-                                       placeholder="Masukkan Password" 
-                                       required minlength="6"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200">
-                                <p class="text-xs text-gray-500 mt-1">Minimal 6 karakter.</p>
-                            </div>
-
-                            <div id="feedback-message" class="text-sm font-medium"></div>
-
-                            <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                                <a href="index.html" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition duration-200">
-                                    Batal
-                                </a>
-                                <button type="submit" id="submit-btn" class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 shadow-lg shadow-green-500/30 transition duration-200 flex items-center">
-                                    <span>Simpan User</span>
-                                </button>
-                            </div>
-
-                        </form>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
+                    <input type="text" id="name" name="name" 
+                           placeholder="Contoh: Asep Sunandar" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition duration-200">
+                  </div>
+                  <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                    <input type="text" id="username" name="username" 
+                           placeholder="Contoh: asep123" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition duration-200">
+                  </div>
                 </div>
 
-            </div>
-        </main>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                  <input type="email" id="email" name="email" 
+                         placeholder="Contoh: asep@naturekaltim.com" required
+                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition duration-200">
+                </div>
 
+                <div>
+                  <label for="role" class="block text-sm font-medium text-gray-700 mb-2">Role / Peran</label>
+                  <select id="role" name="role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition duration-200 bg-white">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                  <input type="password" id="password" name="password" 
+                         placeholder="Masukkan Password" required minlength="6"
+                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition duration-200">
+                  <p class="text-xs text-gray-500 mt-1">Minimal 6 karakter.</p>
+                </div>
+
+                <div id="feedback-message" class="text-sm font-medium"></div>
+
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+                  <a href="index.html" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition duration-200">Batal</a>
+                  <button type="submit" id="submit-btn" class="px-6 py-2 bg-cyan-600 text-white font-medium rounded-lg hover:bg-cyan-700 shadow-lg shadow-cyan-500/30 transition duration-200 flex items-center">
+                    <i data-lucide="save" width="18" class="mr-2"></i>
+                    <span>Simpan User</span>
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
     <script type="module" src="create-user.js"></script>
     <script>
-     function handleLogout() {
-    if (confirm("Yakin ingin keluar?")) {
-    localStorage.removeItem("token");
-      // Tambahkan satu lagi "../" agar naik 2 level
-      window.location.href = "../../logres/login.html"; 
-    }
-  }
+      function handleLogout() {
+        if (confirm("Yakin ingin keluar?")) {
+          localStorage.removeItem("token");
+          window.location.href = "../../logres/login.html"; 
+        }
+      }
+      window.addEventListener('load', () => { if(window.lucide) lucide.createIcons(); });
     </script>
-</body>
+  </body>
 </html>

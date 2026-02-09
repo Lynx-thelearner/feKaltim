@@ -69,9 +69,6 @@ async function loadRecentUsers() {
 
         if (!Array.isArray(users)) users = [];
 
-        // Ambil 5 user terakhir (Asumsi data terbaru ada di akhir atau perlu disortir)
-        // Kita balik urutannya (reverse) agar yang terakhir fetch muncul di atas
-        // Atau jika ada field 'created_at', bisa di sort: users.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
         const recentUsers = users.slice(-5).reverse(); 
 
         let rows = "";
