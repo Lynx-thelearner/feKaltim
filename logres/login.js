@@ -107,7 +107,7 @@ loginBtn.addEventListener("click", async (e) => {
     // Ambil data user/role
     const role = getRole();
 
-    // Beri sedikit delay agar user melihat status sukses (opsional, tapi bagus untuk UX)
+   
     btnText.textContent = "Berhasil!";
     setTimeout(() => {
         if (role === "admin") {
